@@ -1,7 +1,6 @@
 #include "TestLevel.h"
 #include "Engine/Engine.h"
-
-#include <Windows.h>
+#include "Core.h"
 
 TestLevel::TestLevel()
 {
