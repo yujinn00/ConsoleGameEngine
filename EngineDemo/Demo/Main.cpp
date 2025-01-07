@@ -3,7 +3,11 @@
 
 int main()
 {
-	Game game;
-	game.LoadLevel(new TestLevel());
-	game.Run();
+	Engine engine;
+	engine.LoadLevel(new TestLevel());
+	engine.Run();
+
+	//Game game;
+	//game.LoadLevel(new TestLevel());
+	//game.Run();
 }
