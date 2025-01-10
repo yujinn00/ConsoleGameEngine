@@ -4,9 +4,7 @@
 #include "RTTI.h"
 #include "Container/List.h"
 
-// 전방 선언
 class Actor;
-
 class ENGINE_API Level : public RTTI
 {
 	// RTTI 정의

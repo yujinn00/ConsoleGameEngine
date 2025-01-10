@@ -235,7 +235,7 @@ void Engine::Update(float deltaTime)
 void Engine::Clear()
 {
 	// 화면의 (0, 0)으로 이동
-	SetCursorPosition(0 ,0);
+	SetCursorPosition(0, 0);
 
 	// 화면 지우기
 	int height = 25;

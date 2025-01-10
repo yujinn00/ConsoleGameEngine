@@ -21,9 +21,9 @@ enum class CursorType
 	NormalCursor
 };
 
-class Level;
-
 // 엔진 클래스
+class Level;
+class Actor;
 class ENGINE_API Engine
 {
 public:
@@ -36,10 +36,8 @@ public:
 	// 레벨 추가 함수
 	void LoadLevel(Level* newLevel);
 	
-	// 액터 추가 함수
+	// 액터 추가 및 삭제 함수
 	void AddActor(Actor* newActor);
-	
-	// 액터 삭제 함수
 	void DestroyActor(Actor* targetActor);
 
 	// 화면 좌표 관련 함수

@@ -11,8 +11,10 @@ class List
 {
 public:
 	List()
+		: capacity(2)
 	{
-		ReAllocate(2);
+		data = new T[capacity];
+		memset(data, 0, sizeof(T) * capacity);
 	}
 
 	~List()
@@ -118,7 +120,10 @@ private:
 			size = newCapacity;
 		}
 
-		memcpy(newBlock, data, sizeof(T) * capacity);
+		if (data != nullptr)
+		{
+			memcpy(newBlock, data, sizeof(T) * capacity);
+		}
 		//for (int ix = 0; ix < size; ++ix)
 		//{
 		//	// newBlock[ix] = data[ix];
