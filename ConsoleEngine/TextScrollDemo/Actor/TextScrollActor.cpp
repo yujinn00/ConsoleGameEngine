@@ -27,6 +27,26 @@ void TextScrollActor::Update(float deltaTime)
 		Engine::Get().QuitGame();
 	}
 
+	// 좌우 방향키 입력 처리
+	if (Engine::Get().GetKey(VK_LEFT))
+	{
+		// 방향 설정
+		direction = Direction::Left;
+		shouldUpdate = true;
+	}
+	if (Engine::Get().GetKey(VK_RIGHT))
+	{
+		// 방향 설정
+		direction = Direction::Right;
+		shouldUpdate = true;
+	}
+
+	// 방향키가 안 눌렸는지 확인
+	if (!Engine::Get().GetKey(VK_LEFT) && !Engine::Get().GetKey(VK_RIGHT))
+	{
+		shouldUpdate = false;
+	}
+
 	// 딜레이 계산
 	elapsedTime += deltaTime;
 
@@ -39,8 +59,19 @@ void TextScrollActor::Update(float deltaTime)
 	// 시간이 경과했으면 다음 계산을 위해 초기화
 	elapsedTime = 0.0f;
 
-	// 화면에 그릴 문자열의 시작 인덱스 업데이트
-	index = (index + 1) % length;
+	if (shouldUpdate)
+	{
+		if (direction == Direction::Right)
+		{
+			// 화면에 그릴 문자열의 시작 인덱스 업데이트
+			index = (index - 1 + length) % length;
+		}
+		else if (direction == Direction::Left)
+		{
+			// 화면에 그릴 문자열의 시작 인덱스 업데이트
+			index = (index + 1) % length;
+		}
+	}
 }
 
 void TextScrollActor::Draw()
