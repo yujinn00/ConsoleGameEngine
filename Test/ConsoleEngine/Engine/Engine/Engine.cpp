@@ -1,15 +1,27 @@
-#include "Engine.h"
+#include "PreCompiledHeader.h"
 
+#include "Engine.h"
 #include <Windows.h>
 #include <iostream>
+#include "Level/Level.h"
+
+// 싱글톤 스태틱 변수 초기화
+Engine* Engine::instance = nullptr;
 
 Engine::Engine()
-	: quit(false)
+	: quit(false), mainLevel(nullptr)
 {
+	// 싱글톤 객체 설정
+	instance = this;
 }
 
 Engine::~Engine()
 {
+	// 메인 레벨 삭제
+	if (mainLevel != nullptr)
+	{
+		delete mainLevel;
+	}
 }
 
 void Engine::Run()
@@ -59,6 +71,16 @@ void Engine::Run()
 	}
 }
 
+void Engine::LoadLevel(Level* newLevel)
+{
+	if (mainLevel != nullptr)
+	{
+		delete mainLevel; // 기존 레벨 삭제
+	}
+
+	mainLevel = newLevel; // 새 레벨 설정
+}
+
 bool Engine::GetKey(int key)
 {
 	return keyState[key].isKeyDown;
@@ -79,32 +101,38 @@ void Engine::QuitGame()
 	quit = true;
 }
 
+Engine& Engine::Get()
+{
+	return *instance;
+}
+
 void Engine::ProcessInput()
 {
 	for (int i = 0; i < 255; ++i)
 	{
 		// GetAsyncKeyState(): 비동기 함수
-		// 0x0000: 아무것도 안 눌림
+		// 0x0000: 아무 키도 눌리지 않은 상태
 		// 0x8000: 키가 현재 눌려 있는 상태를 확인하는 데 사용
 		// 0x0001: 키가 눌렸다가 떼어진 상태인지 확인하는 데 사용
-		// 0x8001: asdf
+		// 0x8001: 키가 눌려 있는 상태에서 눌렸다가 떼어진 상태를 동시에 확인
 		keyState[i].isKeyDown = (GetAsyncKeyState(i) & 0x8000) ? true : false;
 	}
 }
 
 void Engine::Update(float deltaTime)
 {
-	// ESC: 종료
-	if (GetKeyDown(VK_ESCAPE))
+	if (mainLevel != nullptr)
 	{
-		QuitGame();
+		mainLevel->Update(deltaTime); // 레벨 업데이트
 	}
-
-	std::cout << "DeltaTime: " << deltaTime << ", FPS: " << (1.0f / deltaTime) << "\n";
 }
 
 void Engine::Draw()
 {
+	if (mainLevel != nullptr)
+	{
+		mainLevel->Draw(); // 레벨 렌더링
+	}
 }
 
 void Engine::SavePreviousKeyStates()
