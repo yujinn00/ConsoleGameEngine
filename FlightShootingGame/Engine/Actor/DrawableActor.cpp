@@ -1,4 +1,5 @@
 #include "PreCompiledHeader.h"
+
 #include "DrawableActor.h"
 #include "Engine/Engine.h"
 
@@ -9,6 +10,9 @@ DrawableActor::DrawableActor(const char* image)
 	size_t length = strlen(image) + 1;
 	this->image = new char[length];
 	strcpy_s(this->image, length, image);
+
+	// 너비 설정
+	width = (int)strlen(image);
 }
 
 DrawableActor::~DrawableActor()
