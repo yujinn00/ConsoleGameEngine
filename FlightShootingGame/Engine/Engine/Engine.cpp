@@ -7,12 +7,17 @@
 #include "Level/Level.h"
 #include "Actor/Actor.h"
 
+#include <time.h>
+
 // 스태틱 변수 초기화
 Engine* Engine::instance = nullptr;
 
 Engine::Engine()
 	: quit(false), mainLevel(nullptr), screenSize(40, 25)
 {
+	// 랜덤 시드 설정
+	srand((unsigned int)time(nullptr));
+
 	// 싱글톤 객체 설정
 	instance = this;
 
@@ -73,7 +78,7 @@ void Engine::Run()
 	
 	// __int64 == int64_t
 	int64_t currentTime = time.QuadPart;
-	int64_t previousTime = 0;
+	int64_t previousTime = currentTime;
 
 	//// 프레임 제한
 	//float targetFrameRate = 60.0f;
