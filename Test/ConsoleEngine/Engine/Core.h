@@ -1,54 +1,16 @@
 #pragma once
 
 #include <iostream>
-#include <Windows.h>
+
+#if ENGINE_BUILD_DLL
+#define ENGINE_API __declspec(dllexport)
+#else
+#define ENGINE_API __declspec(dllimport)
+#endif
 
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
-
-// 이동 방향 열거형
-enum class MoveDirection
-{
-	Up,
-	Down,
-	Left,
-	Right
-};
-
-// 생성 위치 열거형
-enum class SpawnPosition
-{
-	Top,
-	Bottom,
-	Left,
-	Right
-};
-
-// 색상 열거형
-enum class Color : unsigned short
-{
-	Red = FOREGROUND_RED | FOREGROUND_INTENSITY,
-	Green = FOREGROUND_GREEN | FOREGROUND_INTENSITY,
-	Blue = FOREGROUND_BLUE | FOREGROUND_INTENSITY,
-	Yellow = FOREGROUND_RED | FOREGROUND_GREEN,
-	Cyan = FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY,
-	Magenta = FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY,
-	White = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE,
-};
-
-// 커서의 종류를 설정할 때 사용할 열거형
-enum class CursorType
-{
-	NoCursor,
-	SolidCursor,
-	NormalCursor
-};
-
-inline void SetColor(Color color)
-{
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (int)color);
-}
 
 // 메모리 삭제 함수
 template<typename T>
@@ -61,36 +23,6 @@ void SafeDelete(T* pointer)
 	}
 }
 
-// 로그 함수
-template<typename... T>
-void Log(const char* format, T&&... args)
-{
-	char buffer[1024];
-	snprintf(buffer, 1024, format, args ...);
-	std::cout << buffer;
-}
-
-// 랜덤 함수
-inline int Random(int min, int max)
-{
-	// 차이 구하기
-	int diff = (max - min + 1);
-	return ((diff * rand()) / (RAND_MAX + 1)) + min;
-}
-
-// min~max 사이의 랜덤 값을 반환해주는 함수
-inline float RandomPercent(float min, float max)
-{
-	float random = (float)(rand() / (float)RAND_MAX);
-	return random * (max - min) + min;
-}
-
-// 메모리 누수 확인할 때 사용하는 함수
-inline void CheckMemoryLeak()
-{
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-}
-
 // 디버깅 용도
 #ifdef _DEBUG
 #define new new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
@@ -100,11 +32,13 @@ inline void CheckMemoryLeak()
 #define new new
 #endif
 
-#if ENGINE_BUILD_DLL
-#define ENGINE_API __declspec(dllexport)
-#else
-#define ENGINE_API __declspec(dllimport)
-#endif
+template<typename... T>
+void Log(const char* format, T&&... args)
+{
+	char buffer[1024];
+	snprintf(buffer, 1024, format, args ...);
+	std::cout << buffer << "\n";
+}
 
 #define VK_LBUTTON        0x01
 #define VK_RBUTTON        0x02

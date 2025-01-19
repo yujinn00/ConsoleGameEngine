@@ -29,7 +29,7 @@ BOOL WINAPI MessageProcessor(DWORD message)
 Engine* Engine::instance = nullptr;
 
 Engine::Engine()
-	: quit(false), mainLevel(nullptr), screenSize(80, 25)
+	: quit(false), mainLevel(nullptr), screenSize(120, 30)
 {
 	// 랜덤 시드 설정
 	srand((unsigned int)time(nullptr));
@@ -193,12 +193,12 @@ void Engine::DrawBorder()
 	for (int x = 0; x < screenSize.x; ++x)
 	{
 		// 위쪽 테두리
-		imageBuffer[x].Char.AsciiChar = '#';
+		imageBuffer[x].Char.AsciiChar = '-';
 		imageBuffer[x].Attributes = (unsigned short)Color::White;
 
 		// 아래쪽 테두리
 		int bottomIndex = (screenSize.y - 1) * screenSize.x + x;
-		imageBuffer[bottomIndex].Char.AsciiChar = '#';
+		imageBuffer[bottomIndex].Char.AsciiChar = '-';
 		imageBuffer[bottomIndex].Attributes = (unsigned short)Color::White;
 	}
 
@@ -207,12 +207,12 @@ void Engine::DrawBorder()
 	{
 		// 왼쪽 테두리
 		int leftIndex = y * screenSize.x;
-		imageBuffer[leftIndex].Char.AsciiChar = '#';
+		imageBuffer[leftIndex].Char.AsciiChar = '|';
 		imageBuffer[leftIndex].Attributes = (unsigned short)Color::White;
 
 		// 오른쪽 테두리
 		int rightIndex = y * screenSize.x + (screenSize.x - 1);
-		imageBuffer[rightIndex].Char.AsciiChar = '#';
+		imageBuffer[rightIndex].Char.AsciiChar = '|';
 		imageBuffer[rightIndex].Attributes = (unsigned short)Color::White;
 	}
 }

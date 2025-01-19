@@ -5,6 +5,9 @@
 Player::Player(const char* image)
 	: Super(image)
 {
+    // 색상 설정
+    color = Color::Cyan;
+
 	// 화면 크기를 가져와 중앙 위치 계산
 	Vector2 screenSize = Engine::Get().ScreenSize();
 	Vector2 centerPosition(screenSize.x / 2, screenSize.y / 2);
@@ -25,6 +28,16 @@ void Player::Update(float deltaTime)
     static float preciseX = static_cast<float>(position.x);
     static float preciseY = static_cast<float>(position.y);
 
+    // 하단 키 입력 처리
+    if (Engine::Get().GetKey(VK_DOWN))
+    {
+        preciseY += moveSpeedY * deltaTime;
+        if (preciseY > screenSize.y - width - 1)
+        {
+            preciseY = screenSize.y - width - 1;
+        }
+    }
+
     // 상단 키 입력 처리
     if (Engine::Get().GetKey(VK_UP))
     {
@@ -35,13 +48,13 @@ void Player::Update(float deltaTime)
         }
     }
 
-    // 하단 키 입력 처리
-    if (Engine::Get().GetKey(VK_DOWN))
+    // 우측 키 입력 처리
+    if (Engine::Get().GetKey(VK_RIGHT))
     {
-        preciseY += moveSpeedY * deltaTime;
-        if (preciseY > screenSize.y - 2.0f)
+        preciseX += moveSpeedX * deltaTime;
+        if (preciseX > screenSize.x - width - 1)
         {
-            preciseY = screenSize.y - 2.0f;
+            preciseX = screenSize.x - width - 1;
         }
     }
 
@@ -52,16 +65,6 @@ void Player::Update(float deltaTime)
         if (preciseX < 1.0f)
         {
             preciseX = 1.0f;
-        }
-    }
-
-    // 우측 키 입력 처리
-    if (Engine::Get().GetKey(VK_RIGHT))
-    {
-        preciseX += moveSpeedX * deltaTime;
-        if (preciseX > screenSize.x - 2.0f)
-        {
-            preciseX = screenSize.x - 2.0f;
         }
     }
 

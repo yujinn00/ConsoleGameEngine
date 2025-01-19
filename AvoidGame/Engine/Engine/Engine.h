@@ -35,8 +35,6 @@ public:
 
 	// 화면 좌표 관련 함수
 	void SetCursorType(CursorType cursorType);
-	//void SetCursorPosition(const Vector2& position);
-	//void SetCursorPosition(int x, int y);
 
 	void Draw(const Vector2& position, const char* image, Color color = Color::White);
 
@@ -99,7 +97,7 @@ protected:
 	// 화면 크기
 	Vector2 screenSize;
 
-	// 화면 지울 때 사용할 버퍼 (Blob).
+	// 화면 지울 때 사용할 버퍼 (Blob)
 	CHAR_INFO* imageBuffer = nullptr;
 
 	// 화면 버퍼.

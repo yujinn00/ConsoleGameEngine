@@ -7,13 +7,34 @@
 #include <stdlib.h>
 #include <crtdbg.h>
 
+// 이동 방향 열거형
+enum class MoveDirection
+{
+	Up,
+	Down,
+	Left,
+	Right
+};
+
+// 생성 위치 열거형
+enum class SpawnPosition
+{
+	Top,
+	Bottom,
+	Left,
+	Right
+};
+
 // 색상 열거형
 enum class Color : unsigned short
 {
-	Red = FOREGROUND_RED,
-	Green = FOREGROUND_GREEN,
-	Blue = FOREGROUND_BLUE,
-	White = Red + Green + Blue
+	Red = FOREGROUND_RED | FOREGROUND_INTENSITY,
+	Green = FOREGROUND_GREEN | FOREGROUND_INTENSITY,
+	Blue = FOREGROUND_BLUE | FOREGROUND_INTENSITY,
+	Yellow = FOREGROUND_RED | FOREGROUND_GREEN,
+	Cyan = FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY,
+	Magenta = FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY,
+	White = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE,
 };
 
 // 커서의 종류를 설정할 때 사용할 열거형
