@@ -34,7 +34,7 @@ void Player::Update(float deltaTime)
         preciseY += moveSpeedY * deltaTime;
         if (preciseY > screenSize.y - width - 1)
         {
-            preciseY = screenSize.y - width - 1;
+            preciseY = static_cast<float>(screenSize.y - width - 1);
         }
     }
 
@@ -54,7 +54,7 @@ void Player::Update(float deltaTime)
         preciseX += moveSpeedX * deltaTime;
         if (preciseX > screenSize.x - width - 1)
         {
-            preciseX = screenSize.x - width - 1;
+            preciseX = static_cast<float>(screenSize.x - width - 1);
         }
     }
 

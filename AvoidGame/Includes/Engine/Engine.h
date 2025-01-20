@@ -29,6 +29,9 @@ public:
 	// 레벨 추가 함수
 	void LoadLevel(Level* newLevel);
 
+	// 현재 레발 반환 함수
+	Level* GetCurrentLevel() const;
+
 	// 액터 추가 및 삭제 함수
 	void AddActor(Actor* newActor);
 	void DestroyActor(Actor* targetActor);
@@ -40,9 +43,6 @@ public:
 
 	// 화면 크기 반환 함수
 	inline Vector2 ScreenSize() const { return screenSize; };
-
-	// 화면 테두리 설정 함수
-	void DrawBorder();
 
 	// 타겟 프레임 속도 설정 함수
 	void SetTargetFrameRate(float targetFrameRate);

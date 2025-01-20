@@ -29,7 +29,7 @@ BOOL WINAPI MessageProcessor(DWORD message)
 Engine* Engine::instance = nullptr;
 
 Engine::Engine()
-	: quit(false), mainLevel(nullptr), screenSize(120, 30)
+	: quit(false), mainLevel(nullptr), screenSize(100, 20) // 원래는 120, 30이었음 ..
 {
 	// 랜덤 시드 설정
 	srand((unsigned int)time(nullptr));
@@ -103,7 +103,7 @@ void Engine::Run()
 		// 프레임 시간 계산
 		float deltaTime = static_cast<float>(currentTime - previousTime) / static_cast<float>(frequency.QuadPart);
 
-		// 프레임 확인
+		// 프레임 확인`
 		if (deltaTime >= targetOneFrameTime)
 		{
 			// 입력 처리 (현재 키의 눌림 상태 확인)
@@ -113,7 +113,6 @@ void Engine::Run()
 			if (shouldUpdate)
 			{
 				Update(deltaTime);	// 프레임 업데이트
-				DrawBorder();		// 테두리 그리기
 				Draw();				// 게임 오브젝트 그리기
 			}
 
@@ -141,6 +140,11 @@ void Engine::LoadLevel(Level* newLevel)
 
 	// 메인 레벨 설정
 	mainLevel = newLevel;
+}
+
+Level* Engine::GetCurrentLevel() const
+{
+	return mainLevel;
 }
 
 void Engine::AddActor(Actor* newActor)
@@ -184,39 +188,6 @@ void Engine::Draw(const Vector2& position, const char* image, Color color)
 	}
 }
 
-void Engine::DrawBorder()
-{
-	// 화면 크기 가져오기
-	Vector2 screenSize = ScreenSize();
-
-	// 위쪽과 아래쪽 테두리
-	for (int x = 0; x < screenSize.x; ++x)
-	{
-		// 위쪽 테두리
-		imageBuffer[x].Char.AsciiChar = '-';
-		imageBuffer[x].Attributes = (unsigned short)Color::White;
-
-		// 아래쪽 테두리
-		int bottomIndex = (screenSize.y - 1) * screenSize.x + x;
-		imageBuffer[bottomIndex].Char.AsciiChar = '-';
-		imageBuffer[bottomIndex].Attributes = (unsigned short)Color::White;
-	}
-
-	// 왼쪽과 오른쪽 테두리
-	for (int y = 0; y < screenSize.y; ++y)
-	{
-		// 왼쪽 테두리
-		int leftIndex = y * screenSize.x;
-		imageBuffer[leftIndex].Char.AsciiChar = '|';
-		imageBuffer[leftIndex].Attributes = (unsigned short)Color::White;
-
-		// 오른쪽 테두리
-		int rightIndex = y * screenSize.x + (screenSize.x - 1);
-		imageBuffer[rightIndex].Char.AsciiChar = '|';
-		imageBuffer[rightIndex].Attributes = (unsigned short)Color::White;
-	}
-}
-
 void Engine::SetTargetFrameRate(float targetFrameRate)
 {
 	this->targetFrameRate = targetFrameRate;
@@ -240,6 +211,7 @@ bool Engine::GetKeyUp(int key)
 
 void Engine::QuitGame()
 {
+	Engine::Get().
 	quit = true;
 }
 
@@ -275,10 +247,7 @@ void Engine::Clear()
 void Engine::Draw()
 {
 	// 화면 지우기
-	Clear();
-
-	// 테두리 그리기
-	DrawBorder();
+	Clear();;
 
 	// 레벨 그리기
 	if (mainLevel != nullptr)

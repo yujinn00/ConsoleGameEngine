@@ -18,7 +18,4 @@ private:
 
 	// 이동 속도
 	float speed = 0.0f;
-
-	// 생성 위치
-	SpawnPosition spawnPosition;
 };

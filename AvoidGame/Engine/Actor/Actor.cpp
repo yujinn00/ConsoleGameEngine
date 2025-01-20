@@ -25,7 +25,7 @@ void Actor::SetPosition(const Vector2& newPosition)
 	position = newPosition;
 }
 
-inline Vector2 Actor::GetPosition() const
+Vector2 Actor::GetPosition() const
 {
 	return position;
 }

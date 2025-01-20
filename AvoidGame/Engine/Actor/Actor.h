@@ -26,7 +26,7 @@ public:
 
 	// Getter / Setter
 	virtual void SetPosition(const Vector2& newPosition);
-	inline Vector2 GetPosition() const;
+	Vector2 GetPosition() const;
 
 	inline bool IsActive() const { return isActive && !isExpired; }
 	inline void SetActive(bool active) { isActive = active; }
