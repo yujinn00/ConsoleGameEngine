@@ -8,6 +8,8 @@
 #include "Actor/EnemyBullet.h"
 #include "Actor/EnemyC.h"
 
+#include <string>
+
 GameLevel::GameLevel()
 	: player(new Player("P"))
 {
@@ -31,7 +33,7 @@ void GameLevel::Update(float deltaTime)
 	{
 		Game::Get().ToggleLevel("Game Menu");
 	}
-
+	
 	// EnemyA 소환 타이머 업데이트
 	spawnElapsedTimeA += deltaTime;
 	if (spawnElapsedTimeA >= spawnIntervalA)
@@ -75,6 +77,10 @@ void GameLevel::Draw()
 	{
 		actor->Draw();
 	}
+
+	// 점수 출력하기
+	std::string scoreText = "Score: " + std::to_string(score);
+	Engine::Get().Draw(Vector2(Engine::Get().ScreenSize().x / 2 - 5, 0), scoreText.c_str(), Color::Green);
 }
 
 Player* GameLevel::GetPlayer() const

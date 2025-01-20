@@ -29,7 +29,7 @@ BOOL WINAPI MessageProcessor(DWORD message)
 Engine* Engine::instance = nullptr;
 
 Engine::Engine()
-	: quit(false), mainLevel(nullptr), screenSize(100, 20) // 원래는 120, 30이었음 ..
+	: quit(false), mainLevel(nullptr), screenSize(118, 24)
 {
 	// 랜덤 시드 설정
 	srand((unsigned int)time(nullptr));

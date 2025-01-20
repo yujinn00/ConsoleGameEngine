@@ -39,7 +39,7 @@ void Game::ToggleLevel(const char* text)
 {
 	system("cls");
 
-	if (text == "Game Start" || text == "Game Resume")
+	if (text == "Play Game" || text == "Resume Game")
 	{
 		mainLevel = gameLevel;
 	}
@@ -47,7 +47,7 @@ void Game::ToggleLevel(const char* text)
 	{
 		mainLevel = menuLevel;
 	}
-	else if (text == "Return to Lobby")
+	else if (text == "Return")
 	{
 		mainLevel = lobbyLevel;
 	}

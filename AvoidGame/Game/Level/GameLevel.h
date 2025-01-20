@@ -35,6 +35,9 @@ private:
 	// 플레이어 객체
 	Player* player;
 
+	// 점수
+	int score = 0;
+
 	// EnemyA 스폰 타이머
 	float spawnElapsedTimeA = 0.0f;
 	float spawnIntervalA = 0.0f;
