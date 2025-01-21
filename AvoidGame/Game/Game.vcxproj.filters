@@ -21,22 +21,22 @@
     <ClCompile Include="Game\Game.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Actor\Player.cpp">
+    <ClCompile Include="Actor\Player\Player.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Level\GameLevel.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Actor\EnemyA.cpp">
+    <ClCompile Include="Actor\Enemy\EnemyA.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Actor\EnemyB.cpp">
+    <ClCompile Include="Actor\Enemy\EnemyB.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Actor\EnemyBullet.cpp">
+    <ClCompile Include="Actor\Enemy\EnemyBullet.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Actor\EnemyC.cpp">
+    <ClCompile Include="Actor\Enemy\EnemyC.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Level\LobbyLevel.cpp">
@@ -45,13 +45,16 @@
     <ClCompile Include="Level\MenuLevel.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Actor\Bomb.cpp">
+    <ClCompile Include="Actor\Item\Bomb.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Actor\Shield.cpp">
+    <ClCompile Include="Actor\Item\Shield.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Actor\PlayerBullet.cpp">
+    <ClCompile Include="Actor\Player\PlayerBullet.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor\Item\Upgrade.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,22 +62,22 @@
     <ClInclude Include="Game\Game.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\Player.h">
+    <ClInclude Include="Actor\Player\Player.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Level\GameLevel.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\EnemyA.h">
+    <ClInclude Include="Actor\Enemy\EnemyA.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\EnemyB.h">
+    <ClInclude Include="Actor\Enemy\EnemyB.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\EnemyBullet.h">
+    <ClInclude Include="Actor\Enemy\EnemyBullet.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\EnemyC.h">
+    <ClInclude Include="Actor\Enemy\EnemyC.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Level\LobbyLevel.h">
@@ -83,13 +86,16 @@
     <ClInclude Include="Level\MenuLevel.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\Bomb.h">
+    <ClInclude Include="Actor\Item\Bomb.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\Shield.h">
+    <ClInclude Include="Actor\Item\Shield.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\PlayerBullet.h">
+    <ClInclude Include="Actor\Player\PlayerBullet.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\Item\Upgrade.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

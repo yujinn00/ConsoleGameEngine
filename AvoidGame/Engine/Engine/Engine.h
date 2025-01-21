@@ -29,7 +29,7 @@ public:
 	// 레벨 추가 함수
 	void LoadLevel(Level* newLevel);
 
-	// 현재 레발 반환 함수
+	// 현재 레벨 반환 함수
 	Level* GetCurrentLevel() const;
 
 	// 액터 추가 및 삭제 함수

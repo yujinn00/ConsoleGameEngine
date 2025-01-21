@@ -1,10 +1,10 @@
-#include "Bomb.h"
+#include "Upgrade.h"
 #include "Engine/Engine.h"
 
-Bomb::Bomb(const char* image)
+Upgrade::Upgrade(const char* image)
 	: DrawableActor(image)
 {
-	color = Color::Green;
+	color = Color::Blue;
 
 	// 맵 크기 가져오기
 	Vector2 screenSize = Engine::Get().ScreenSize();
@@ -17,7 +17,7 @@ Bomb::Bomb(const char* image)
 	SetPosition(Vector2(xPosition, yPosition));
 }
 
-void Bomb::Update(float deltaTime)
+void Upgrade::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 }

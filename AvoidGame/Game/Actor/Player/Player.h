@@ -31,6 +31,11 @@ private:
 	// y축 이동 속도 (초당 픽셀)
 	float moveSpeedY = 15.0f;
 
+	// 탄알 스폰 타이머
+	float spawnElapsedTimeBullet = 0.0f;
+	float spawnIntervalBullet = 2.0f;
+	bool isSpawnBullet = true;
+
 	// 현재 바라보는 방향
-	MoveDirection moveDirection;
+	MoveDirection moveDirection = MoveDirection::Up;
 };

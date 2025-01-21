@@ -2,14 +2,15 @@
 #include "Engine/Engine.h"
 #include "Game/Game.h"
 
-#include "Actor/Player.h"
-#include "Actor/EnemyA.h"
-#include "Actor/EnemyB.h"
-#include "Actor/EnemyC.h"
-#include "Actor/PlayerBullet.h"
-#include "Actor/EnemyBullet.h"
-#include "Actor/Bomb.h"
-#include "Actor/Shield.h"
+#include "Actor/Player/Player.h"
+#include "Actor/Player/PlayerBullet.h"
+#include "Actor/Enemy/EnemyA.h"
+#include "Actor/Enemy/EnemyB.h"
+#include "Actor/Enemy/EnemyC.h"
+#include "Actor/Enemy/EnemyBullet.h"
+#include "Actor/Item/Bomb.h"
+#include "Actor/Item/Shield.h"
+#include "Actor/Item/Upgrade.h"
 
 #include <string>
 
@@ -32,6 +33,9 @@ GameLevel::GameLevel()
 
 	// Shield: 15초마다 생성
 	spawnIntervalShield = 15.0f;
+
+	// Upgrade: 5초마다 생성
+	spawnIntervalShield = 5.0f;
 }
 
 void GameLevel::Update(float deltaTime)
@@ -79,7 +83,7 @@ void GameLevel::Update(float deltaTime)
 		SpawnBomb(); // Bomb 소환
 	}
 
-	// @Todo: 여기 타이머 스폰 좀 수정해야 함
+	// @Todo: 여기 타이머 스폰 좀 수정해야 함 (사실 전부 조절해야 함 .. 스티커 메모처럼 ..)
 	// Shield 소환 타이머 업데이트
 	spawnElapsedTimeShield += deltaTime;
 	if (spawnElapsedTimeShield >= spawnIntervalShield)
@@ -87,6 +91,15 @@ void GameLevel::Update(float deltaTime)
 		spawnElapsedTimeShield = 0.0f;
 		spawnIntervalShield = 10.0f; // 소환 간격 15초 고정
 		SpawnShield(); // Shield 소환
+	}
+
+	// Upgrade 소환 타이머 업데이트
+	spawnElapsedTimeUpgrade += deltaTime;
+	if (spawnElapsedTimeUpgrade >= spawnIntervalUpgrade)
+	{
+		spawnElapsedTimeUpgrade = 0.0f;
+		spawnIntervalUpgrade = 5.0f; // 소환 간격 5초 고정
+		SpawnUpgrade(); // Upgrade 소환
 	}
 
 	// 충돌 처리 함수 호출
@@ -97,6 +110,7 @@ void GameLevel::Update(float deltaTime)
 	ProcessCollisionEnemyAndBullet();
 	ProcessCollisionPlayerAndBomb();
 	ProcessCollisionPlayerAndShield();
+	ProcessCollisionPlayerAndUpgrade();
 }
 
 void GameLevel::Draw()
@@ -173,6 +187,11 @@ void GameLevel::SpawnBomb()
 void GameLevel::SpawnShield()
 {
 	AddActor(new Shield("S"));
+}
+
+void GameLevel::SpawnUpgrade()
+{
+	AddActor(new Upgrade("U"));
 }
 
 void GameLevel::ProcessCollisionPlayerAndEnemyA()
@@ -455,12 +474,11 @@ void GameLevel::ProcessCollisionEnemyAndBullet()
 		}
 	}
 
-	// @Todo: 이거 예외 처리 제대로 설정해야 함 => || 이게 문제였음
-	//// 예외 처리
-	//if (enemyAs.Size() == 0 || enemyBs.Size() == 0 || enemyCs.Size() == 0 || bullets.Size() == 0)
-	//{
-	//	return;
-	//}
+	// 예외 처리
+	if ((enemyAs.Size() == 0 && enemyBs.Size() == 0 && enemyCs.Size() == 0) || bullets.Size() == 0)
+	{
+		return;
+	}
 
 	// 배열을 순회하면서 충돌 처리
 	for (PlayerBullet* bullet : bullets)
@@ -588,6 +606,44 @@ void GameLevel::ProcessCollisionPlayerAndShield()
 
 		player->CreateShield();
 
-		// @Todo: 타이머 관련 함수 ..
+		// @Todo: 타이머 관련 함수 .. (음 ? 이게 머지 .. 암튼 그냥 스티커 메모대로 ㄱㄱ)
+	}
+}
+
+void GameLevel::ProcessCollisionPlayerAndUpgrade()
+{
+	Player* player = nullptr;
+	Upgrade* upgrade = nullptr;
+
+	// 레벨에 있는 모든 액터를 순회
+	for (Actor* actor : actors)
+	{
+		// 플레이어 검색
+		if (!player)
+		{
+			player = actor->As<Player>();
+			continue;
+		}
+
+		// 업그레이드 아이템 검색
+		if (!upgrade)
+		{
+			upgrade = actor->As<Upgrade>();
+			continue;
+		}
+	}
+
+	// 예외 처리
+	if (player == nullptr || upgrade == nullptr)
+	{
+		return;
+	}
+
+	if (player->Intersect(*upgrade))
+	{
+		// 업그레이드 아이템 삭제
+		upgrade->Destroy();
+
+		// @Todo: 업그레이드 아이템 먹으면 총알 발사 쿨타임 줄어들게 ..
 	}
 }

@@ -26,6 +26,7 @@ private:
 	void SpawnEnemyC();
 	void SpawnBomb();
 	void SpawnShield();
+	void SpawnUpgrade();
 
 	// 액터끼리의 충돌 처리
 	void ProcessCollisionPlayerAndEnemyA();
@@ -35,6 +36,7 @@ private:
 	void ProcessCollisionEnemyAndBullet();
 	void ProcessCollisionPlayerAndBomb();
 	void ProcessCollisionPlayerAndShield();
+	void ProcessCollisionPlayerAndUpgrade();
 
 private:
 	// 플레이어 객체
@@ -62,4 +64,8 @@ private:
 	// Shield 스폰 타이머
 	float spawnElapsedTimeShield = 0.0f;
 	float spawnIntervalShield = 0.0f;
+
+	// Upgrade 스폰 타이머
+	float spawnElapsedTimeUpgrade = 0.0f;
+	float spawnIntervalUpgrade = 0.0f;
 };
