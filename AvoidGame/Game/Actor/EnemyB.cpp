@@ -41,7 +41,7 @@ EnemyB::EnemyB(const char* image, SpawnPosition spawnPosition, float speed)
     }
 
     // 초기 위치 설정
-    this->position = Vector2((int)xPosition, (int)yPosition);
+    SetPosition(Vector2(xPosition, yPosition));
 }
 
 void EnemyB::Update(float deltaTime)
@@ -122,6 +122,6 @@ void EnemyB::Update(float deltaTime)
         }
 
         // 총알 추가
-        Engine::Get().AddActor(new EnemyBullet(position, bulletDirection, 10.0f)); // 총알 속도 10.0f
+        Engine::Get().AddActor(new EnemyBullet(position, bulletDirection, 20.0f));
     }
 }

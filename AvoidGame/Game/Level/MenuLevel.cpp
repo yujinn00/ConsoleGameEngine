@@ -4,12 +4,12 @@
 MenuLevel::MenuLevel()
 {
     items.emplace_back(new MenuItem(
-        "< Resume >",
-        []() {Game::Get().ToggleLevel("Resume"); })
+        "< Resume Game >",
+        []() {Game::Get().ToggleLevel("Resume Game"); })
     );
     items.emplace_back(new MenuItem(
-        "< Return >",
-        []() {Game::Get().ToggleLevel("Return"); })
+        "< Go to Lobby >",
+        []() {Game::Get().ToggleLevel("Return to Lobby"); })
     );
 
     itemCount = (int)items.size();
@@ -31,7 +31,7 @@ void MenuLevel::Update(float deltaTime)
 
     if (Engine::Get().GetKeyDown(VK_ESCAPE))
     {
-        Game::Get().ToggleLevel("Game Resume");
+        Game::Get().ToggleLevel("Resume Game");
     }
 
     if (Game::Get().GetKeyDown(VK_UP))
@@ -56,7 +56,7 @@ void MenuLevel::Draw()
 {
     Super::Draw();
 
-    // Draw border
+    // 테두리 그리기
     Vector2 screenSize = Engine::Get().ScreenSize();
     for (int x = 0; x < screenSize.x; ++x)
     {
@@ -69,13 +69,13 @@ void MenuLevel::Draw()
         Engine::Get().Draw(Vector2(screenSize.x - 1, y), "|", Color::White);
     }
 
-    // Title
-    Engine::Get().Draw(Vector2(screenSize.x / 2 - 9, 2), "===== PAUSED =====", Color::Yellow);
+    // 타이틀 그리기
+    Engine::Get().Draw(Vector2(screenSize.x / 2 - 10, screenSize.y / 2 - 4), "====== Paused ======", Color::Yellow);
 
-    // Menu items
+    // 메뉴 그리기
     for (int i = 0; i < itemCount; ++i)
     {
-        Engine::Get().Draw(Vector2(screenSize.x / 2 - 8, i + 5),
+        Engine::Get().Draw(Vector2(screenSize.x / 2 - 7, screenSize.y / 2 + i - 1),
             items[i]->text,
             i == currentSelectedIndex ? selectedColor : unselectedColor);
     }

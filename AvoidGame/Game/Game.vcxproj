@@ -167,11 +167,14 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actor\Bomb.cpp" />
     <ClCompile Include="Actor\EnemyA.cpp" />
     <ClCompile Include="Actor\EnemyB.cpp" />
     <ClCompile Include="Actor\EnemyBullet.cpp" />
     <ClCompile Include="Actor\EnemyC.cpp" />
     <ClCompile Include="Actor\Player.cpp" />
+    <ClCompile Include="Actor\PlayerBullet.cpp" />
+    <ClCompile Include="Actor\Shield.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Level\GameLevel.cpp" />
     <ClCompile Include="Level\LobbyLevel.cpp" />
@@ -179,11 +182,14 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actor\Bomb.h" />
     <ClInclude Include="Actor\EnemyA.h" />
     <ClInclude Include="Actor\EnemyB.h" />
     <ClInclude Include="Actor\EnemyBullet.h" />
     <ClInclude Include="Actor\EnemyC.h" />
     <ClInclude Include="Actor\Player.h" />
+    <ClInclude Include="Actor\PlayerBullet.h" />
+    <ClInclude Include="Actor\Shield.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Level\GameLevel.h" />
     <ClInclude Include="Level\LobbyLevel.h" />

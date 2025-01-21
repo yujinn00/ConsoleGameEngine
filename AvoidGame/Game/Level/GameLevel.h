@@ -20,16 +20,21 @@ private:
 	// 테두리 그리기 함수
 	void DrawBorder();
 
-	// 몬스터 생성 함수
+	// 액터 생성 함수
 	void SpawnEnemyA();
 	void SpawnEnemyB();
 	void SpawnEnemyC();
+	void SpawnBomb();
+	void SpawnShield();
 
-	// 플레이어와 액터와의 충돌 처리
+	// 액터끼리의 충돌 처리
 	void ProcessCollisionPlayerAndEnemyA();
 	void ProcessCollisionPlayerAndEnemyB();
-	void ProcessCollisionPlayerAndBullet();
 	void ProcessCollisionPlayerAndEnemyC();
+	void ProcessCollisionPlayerAndBullet();
+	void ProcessCollisionEnemyAndBullet();
+	void ProcessCollisionPlayerAndBomb();
+	void ProcessCollisionPlayerAndShield();
 
 private:
 	// 플레이어 객체
@@ -49,4 +54,12 @@ private:
 	// EnemyC 스폰 타이머
 	float spawnElapsedTimeC = 0.0f;
 	float spawnIntervalC = 0.0f;
+
+	// Bomb 스폰 타이머
+	float spawnElapsedTimeBomb = 0.0f;
+	float spawnIntervalBomb = 0.0f;
+
+	// Shield 스폰 타이머
+	float spawnElapsedTimeShield = 0.0f;
+	float spawnIntervalShield = 0.0f;
 };

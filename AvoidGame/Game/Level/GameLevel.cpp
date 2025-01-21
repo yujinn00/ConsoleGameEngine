@@ -5,8 +5,11 @@
 #include "Actor/Player.h"
 #include "Actor/EnemyA.h"
 #include "Actor/EnemyB.h"
-#include "Actor/EnemyBullet.h"
 #include "Actor/EnemyC.h"
+#include "Actor/PlayerBullet.h"
+#include "Actor/EnemyBullet.h"
+#include "Actor/Bomb.h"
+#include "Actor/Shield.h"
 
 #include <string>
 
@@ -15,14 +18,20 @@ GameLevel::GameLevel()
 {
 	AddActor(player);
 
-	// EnemyA 시작 후 1초부터 생성
+	// EnemyA: 시작 후 1초부터 생성
 	spawnIntervalA = 1.0f;
 
-	// EnemyB 시작 후 5초부터 생성
+	// EnemyB: 시작 후 5초부터 생성
 	spawnIntervalB = 5.0f;
 
-	// EnemyC 시작 후 10초부터 생성
+	// EnemyC: 시작 후 10초부터 생성
 	spawnIntervalC = 10.0f;
+
+	// Bomb: 10초마다 생성
+	spawnIntervalBomb = 10.0f;
+
+	// Shield: 15초마다 생성
+	spawnIntervalShield = 15.0f;
 }
 
 void GameLevel::Update(float deltaTime)
@@ -61,10 +70,33 @@ void GameLevel::Update(float deltaTime)
 		SpawnEnemyC(); // EnemyC 소환
 	}
 
+	// Bomb 소환 타이머 업데이트
+	spawnElapsedTimeBomb += deltaTime;
+	if (spawnElapsedTimeBomb >= spawnIntervalBomb)
+	{
+		spawnElapsedTimeBomb = 0.0f;
+		spawnIntervalBomb = 10.0f; // 소환 간격 10초 고정
+		SpawnBomb(); // Bomb 소환
+	}
+
+	// @Todo: 여기 타이머 스폰 좀 수정해야 함
+	// Shield 소환 타이머 업데이트
+	spawnElapsedTimeShield += deltaTime;
+	if (spawnElapsedTimeShield >= spawnIntervalShield)
+	{
+		spawnElapsedTimeShield = 0.0f;
+		spawnIntervalShield = 10.0f; // 소환 간격 15초 고정
+		SpawnShield(); // Shield 소환
+	}
+
+	// 충돌 처리 함수 호출
 	ProcessCollisionPlayerAndEnemyA();
 	ProcessCollisionPlayerAndEnemyB();
-	ProcessCollisionPlayerAndBullet();
 	ProcessCollisionPlayerAndEnemyC();
+	ProcessCollisionPlayerAndBullet();
+	ProcessCollisionEnemyAndBullet();
+	ProcessCollisionPlayerAndBomb();
+	ProcessCollisionPlayerAndShield();
 }
 
 void GameLevel::Draw()
@@ -133,6 +165,16 @@ void GameLevel::SpawnEnemyC()
 	AddActor(new EnemyC("C", enemySpeedC));
 }
 
+void GameLevel::SpawnBomb()
+{
+	AddActor(new Bomb("@"));
+}
+
+void GameLevel::SpawnShield()
+{
+	AddActor(new Shield("S"));
+}
+
 void GameLevel::ProcessCollisionPlayerAndEnemyA()
 {
 	// Player와 EnemyA 배열 선언
@@ -170,7 +212,17 @@ void GameLevel::ProcessCollisionPlayerAndEnemyA()
 		// Player와 EnemyA가 충돌했는지 확인
 		if (player->Intersect(*enemyA))
 		{
-			// 플레이어 사망
+			// EnemyA 제거
+			enemyA->Destroy();
+
+			// 쉴드가 있는 상태
+			if (player->isShield)
+			{
+				player->DestroyShield();
+				return;
+			}
+
+			// 플레이어 제거
 			player->Destroy();
 
 			// 약 2초간 정지
@@ -219,56 +271,17 @@ void GameLevel::ProcessCollisionPlayerAndEnemyB()
 		// Player와 EnemyB가 충돌했는지 확인
 		if (player->Intersect(*enemyB))
 		{
-			// 플레이어 사망
-			player->Destroy();
+			// EnemyB 제거
+			enemyB->Destroy();
 
-			// 약 2초간 정지
-			Sleep(2000);
+			// 쉴드가 있는 상태
+			if (player->isShield)
+			{
+				player->DestroyShield();
+				return;
+			}
 
-			// 게임 종료
-			Engine::Get().QuitGame();
-		}
-	}
-}
-
-void GameLevel::ProcessCollisionPlayerAndBullet()
-{
-	// 플레이어와 적 탄약 변수 선언
-	Player* player = nullptr;
-	List<EnemyBullet*> bullets;
-
-	// 레벨에 배치된 액터를 순회하면서 리스트 채우기
-	for (Actor* actor : actors)
-	{
-		// 플레이어 검색
-		if (!player)
-		{
-			player = actor->As<Player>();
-			continue;
-		}
-
-		// 탄약으로 형 변환 후 확인해서 리스트 채우기
-		EnemyBullet* bullet = actor->As<EnemyBullet>();
-		if (bullet)
-		{
-			bullets.PushBack(bullet);
-			continue;
-		}
-	}
-
-	// 예외 처리
-	if (player == nullptr || bullets.Size() == 0)
-	{
-		return;
-	}
-
-	// 배열을 순회하면서 충돌 처리
-	for (EnemyBullet* bullet : bullets)
-	{
-		// 탄약과 플레이어가 충돌했는 확인
-		if (player->Intersect(*bullet))
-		{
-			// 플레이어 사망
+			// 플레이어 제거
 			player->Destroy();
 
 			// 약 2초간 정지
@@ -317,7 +330,17 @@ void GameLevel::ProcessCollisionPlayerAndEnemyC()
 		// Player와 EnemyC가 충돌했는지 확인
 		if (player->Intersect(*enemyC))
 		{
-			// 플레이어 사망
+			// EnemyC 제거
+			enemyC->Destroy();
+
+			// 쉴드가 있는 상태
+			if (player->isShield)
+			{
+				player->DestroyShield();
+				return;
+			}
+
+			// 플레이어 제거
 			player->Destroy();
 
 			// 약 2초간 정지
@@ -326,5 +349,245 @@ void GameLevel::ProcessCollisionPlayerAndEnemyC()
 			// 게임 종료
 			Engine::Get().QuitGame();
 		}
+	}
+}
+
+void GameLevel::ProcessCollisionPlayerAndBullet()
+{
+	// 플레이어와 적 탄약 변수 선언
+	Player* player = nullptr;
+	List<EnemyBullet*> bullets;
+
+	// 레벨에 배치된 액터를 순회하면서 리스트 채우기
+	for (Actor* actor : actors)
+	{
+		// 플레이어 검색
+		if (!player)
+		{
+			player = actor->As<Player>();
+			continue;
+		}
+
+		// 탄약으로 형 변환 후 확인해서 리스트 채우기
+		EnemyBullet* bullet = actor->As<EnemyBullet>();
+		if (bullet)
+		{
+			bullets.PushBack(bullet);
+			continue;
+		}
+	}
+
+	// 예외 처리
+	if (player == nullptr || bullets.Size() == 0)
+	{
+		return;
+	}
+
+	// 배열을 순회하면서 충돌 처리
+	for (EnemyBullet* bullet : bullets)
+	{
+		// 탄약과 플레이어가 충돌했는지 확인
+		if (player->Intersect(*bullet))
+		{
+			// EnemyBullet 제거
+			bullet->Destroy();
+
+			// 쉴드가 있는 상태
+			if (player->isShield)
+			{
+				player->DestroyShield();
+				return;
+			}
+
+			// 플레이어 제거
+			player->Destroy();
+
+			// 약 2초간 정지
+			Sleep(2000);
+
+			// 게임 종료
+			Engine::Get().QuitGame();
+		}
+	}
+}
+
+void GameLevel::ProcessCollisionEnemyAndBullet()
+{
+	// 적과 플레이어 탄약 변수 선언
+	List<EnemyA*> enemyAs;
+	List<EnemyB*> enemyBs;
+	List<EnemyC*> enemyCs;
+	List<PlayerBullet*> bullets;
+
+	// 레벨에 배치된 액터를 순회하면서 리스트 채우기
+	for (Actor* actor : actors)
+	{
+		// EnemyA 검색
+		EnemyA* enemyA = actor->As<EnemyA>();
+		if (enemyA)
+		{
+			enemyAs.PushBack(enemyA);
+			continue;
+		}
+
+		// EnemyB 검색
+		EnemyB* enemyB = actor->As<EnemyB>();
+		if (enemyB)
+		{
+			enemyBs.PushBack(enemyB);
+			continue;
+		}
+
+		// EnemyC 검색
+		EnemyC* enemyC = actor->As<EnemyC>();
+		if (enemyC)
+		{
+			enemyCs.PushBack(enemyC);
+			continue;
+		}
+
+		// 탄약으로 형 변환 후 확인해서 리스트 채우기
+		PlayerBullet* bullet = actor->As<PlayerBullet>();
+		if (bullet)
+		{
+			bullets.PushBack(bullet);
+			continue;
+		}
+	}
+
+	// @Todo: 이거 예외 처리 제대로 설정해야 함 => || 이게 문제였음
+	//// 예외 처리
+	//if (enemyAs.Size() == 0 || enemyBs.Size() == 0 || enemyCs.Size() == 0 || bullets.Size() == 0)
+	//{
+	//	return;
+	//}
+
+	// 배열을 순회하면서 충돌 처리
+	for (PlayerBullet* bullet : bullets)
+	{
+ 		for (EnemyA* enemyA : enemyAs)
+		{
+			if (enemyA->Intersect(*bullet))
+			{
+				// PlayerBullet 제거
+				bullet->Destroy();
+
+				// enemyA 제거
+				enemyA->Destroy();
+			}
+		}
+
+		for (EnemyB* enemyB : enemyBs)
+		{
+			if (enemyB->Intersect(*bullet))
+			{
+				// PlayerBullet 제거
+				bullet->Destroy();
+
+				// enemyB 제거
+				enemyB->Destroy();
+			}
+		}
+
+		for (EnemyC* enemyC : enemyCs)
+		{
+			if (enemyC->Intersect(*bullet))
+			{
+				// PlayerBullet 제거
+				bullet->Destroy();
+
+				// enemyC 제거
+				enemyC->Destroy();
+			}
+		}
+	}
+}
+
+void GameLevel::ProcessCollisionPlayerAndBomb()
+{
+	Player* player = nullptr;
+	List<Bomb*> bombs;
+
+	// 레벨에 있는 모든 액터를 순회
+	for (Actor* actor : actors)
+	{
+		// 플레이어 검색
+		if (!player)
+		{
+			player = actor->As<Player>();
+			continue;
+		}
+
+		// 폭탄 검색
+		Bomb* bomb = actor->As<Bomb>();
+		if (bomb)
+		{
+			bombs.PushBack(bomb);
+		}
+	}
+
+	// 예외 처리
+	if (player == nullptr || bombs.Size() == 0)
+	{
+		return;
+	}
+
+	// 폭탄과 플레이어의 충돌 확인
+	for (Bomb* bomb : bombs)
+	{
+		if (player->Intersect(*bomb))
+		{
+			// 폭탄 삭제
+			bomb->Destroy();
+
+			// 맵에 있는 모든 몬스터 및 탄약 삭제
+			for (Actor* actor : actors)
+			{
+				if (actor->As<EnemyA>() || actor->As<EnemyB>() || actor->As<EnemyBullet>() || actor->As<EnemyC>())
+				{
+					actor->Destroy();
+				}
+			}
+		}
+	}
+}
+
+void GameLevel::ProcessCollisionPlayerAndShield()
+{
+	Player* player = nullptr;
+	Shield* shield = nullptr;
+
+	// 레벨에 있는 모든 액터를 순회
+	for (Actor* actor : actors)
+	{
+		// 플레이어 검색
+		if (!player)
+		{
+			player = actor->As<Player>();
+			continue;
+		}
+
+		// 쉴드 검색
+		if (!shield)
+		{
+			shield = actor->As<Shield>();
+			continue;
+		}
+	}
+
+	// 예외 처리
+	if (player == nullptr || shield == nullptr)
+	{
+		return;
+	}
+
+	if (player->Intersect(*shield))
+	{
+		// 쉴드 삭제
+		shield->Destroy();
+
+		player->CreateShield();
+
+		// @Todo: 타이머 관련 함수 ..
 	}
 }

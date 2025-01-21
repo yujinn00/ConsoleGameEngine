@@ -4,8 +4,8 @@
 LobbyLevel::LobbyLevel()
 {
     items.emplace_back(new LobbyItem(
-        "< Start >",
-        []() {Game::Get().ToggleLevel("Play Game"); })
+        "< Start Game >",
+        []() {Game::Get().ToggleLevel("Start Game"); })
     );
     items.emplace_back(new LobbyItem(
         "< Quit Game >",
@@ -51,7 +51,7 @@ void LobbyLevel::Draw()
 {
     Super::Draw();
 
-    // 테두리
+    // 테두리 그리기
     Vector2 screenSize = Engine::Get().ScreenSize();
     for (int x = 0; x < screenSize.x; ++x)
     {
@@ -64,13 +64,13 @@ void LobbyLevel::Draw()
         Engine::Get().Draw(Vector2(screenSize.x - 1, y), "|", Color::White);
     }
 
-    // 제목
-    Engine::Get().Draw(Vector2(screenSize.x / 2 - 9, 2), "===== LOBBY =====", Color::Cyan);
+    // 타이틀 그리기
+    Engine::Get().Draw(Vector2(screenSize.x / 2 - 10, screenSize.y / 2 - 4), "==== Avoid Game ====", Color::Cyan);
 
-    // 메뉴
+    // 메뉴 그리기
     for (int i = 0; i < itemCount; ++i)
     {
-        Engine::Get().Draw(Vector2(screenSize.x / 2 - 7, i + 5),
+        Engine::Get().Draw(Vector2(screenSize.x / 2 - 7, screenSize.y / 2  + i - 1),
             items[i]->text,
             i == currentSelectedIndex ? selectedColor : unselectedColor);
     }

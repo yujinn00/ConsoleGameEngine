@@ -45,6 +45,15 @@
     <ClCompile Include="Level\MenuLevel.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Actor\Bomb.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor\Shield.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor\PlayerBullet.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Game.h">
@@ -72,6 +81,15 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Level\MenuLevel.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\Bomb.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\Shield.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\PlayerBullet.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

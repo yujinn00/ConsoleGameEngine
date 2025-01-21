@@ -38,7 +38,7 @@ EnemyA::EnemyA(const char* image, float speed)
 	}
 
 	// 초기 위치 설정
-	this->position = Vector2((int)xPosition, (int)yPosition);
+	SetPosition(Vector2(xPosition, yPosition));
 }
 
 void EnemyA::Update(float deltaTime)

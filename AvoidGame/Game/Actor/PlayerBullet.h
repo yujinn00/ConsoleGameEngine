@@ -2,12 +2,12 @@
 
 #include <Actor/DrawableActor.h>
 
-class EnemyBullet : public DrawableActor
+class PlayerBullet : public DrawableActor
 {
-	RTTI_DECLARATIONS(EnemyBullet, DrawableActor)
+	RTTI_DECLARATIONS(PlayerBullet, DrawableActor)
 
 public:
-	EnemyBullet(const Vector2& position, MoveDirection moveDirection, float speed);
+	PlayerBullet(const Vector2& position, MoveDirection moveDirection, float speed);
 
 	virtual void Update(float deltaTime) override;
 
