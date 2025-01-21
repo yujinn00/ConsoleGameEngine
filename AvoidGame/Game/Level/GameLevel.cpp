@@ -18,24 +18,6 @@ GameLevel::GameLevel()
 	: player(new Player("P"))
 {
 	AddActor(player);
-
-	// EnemyA: 시작 후 1초부터 생성
-	spawnIntervalA = 1.0f;
-
-	// EnemyB: 시작 후 5초부터 생성
-	spawnIntervalB = 5.0f;
-
-	// EnemyC: 시작 후 10초부터 생성
-	spawnIntervalC = 10.0f;
-
-	// Bomb: 10초마다 생성
-	spawnIntervalBomb = 10.0f;
-
-	// Shield: 15초마다 생성
-	spawnIntervalShield = 15.0f;
-
-	// Upgrade: 5초마다 생성
-	spawnIntervalShield = 5.0f;
 }
 
 void GameLevel::Update(float deltaTime)
@@ -47,13 +29,20 @@ void GameLevel::Update(float deltaTime)
 		Game::Get().ToggleLevel("Game Menu");
 	}
 	
+	// 게임 타이머 업데이트
+	ElapsedTime += deltaTime;
+
 	// EnemyA 소환 타이머 업데이트
 	spawnElapsedTimeA += deltaTime;
 	if (spawnElapsedTimeA >= spawnIntervalA)
 	{
 		spawnElapsedTimeA = 0.0f;
-		spawnIntervalA = RandomPercent(0.1f, 1.0f); // 새로운 랜덤 소환 간격 설정
-		SpawnEnemyA(); // EnemyA 소환
+		spawnIntervalA = RandomPercent(0.1f, 0.3f); // 새로운 랜덤 소환 간격 설정
+		
+		if (ElapsedTime < 15.0f)
+		{
+			SpawnEnemyA(); // EnemyA 소환
+		}
 	}
 
 	// EnemyB 소환 타이머 업데이트
@@ -61,8 +50,12 @@ void GameLevel::Update(float deltaTime)
 	if (spawnElapsedTimeB >= spawnIntervalB)
 	{
 		spawnElapsedTimeB = 0.0f;
-		spawnIntervalB = RandomPercent(0.5f, 2.0f); // 새로운 랜덤 소환 간격 설정
-		SpawnEnemyB(); // EnemyB 소환
+		spawnIntervalB = RandomPercent(0.5f, 1.0f); // 새로운 랜덤 소환 간격 설정
+
+		if (ElapsedTime > 20.0f && ElapsedTime < 35.0f)
+		{
+			SpawnEnemyB(); // EnemyB 소환
+		}
 	}
 
 	// EnemyC 소환 타이머 업데이트
@@ -70,8 +63,12 @@ void GameLevel::Update(float deltaTime)
 	if (spawnElapsedTimeC >= spawnIntervalC)
 	{
 		spawnElapsedTimeC = 0.0f;
-		spawnIntervalC = RandomPercent(1.0f, 3.0f); // 새로운 랜덤 소환 간격 설정
-		SpawnEnemyC(); // EnemyC 소환
+		spawnIntervalC = RandomPercent(0.3f, 0.5f); // 새로운 랜덤 소환 간격 설정
+
+		if (ElapsedTime > 40.0f && ElapsedTime < 55.0f)
+		{
+			SpawnEnemyC(); // EnemyC 소환
+		}
 	}
 
 	// Bomb 소환 타이머 업데이트
@@ -79,17 +76,16 @@ void GameLevel::Update(float deltaTime)
 	if (spawnElapsedTimeBomb >= spawnIntervalBomb)
 	{
 		spawnElapsedTimeBomb = 0.0f;
-		spawnIntervalBomb = 10.0f; // 소환 간격 10초 고정
+		spawnIntervalBomb = RandomPercent(5.0f, 10.0f); // 새로운 랜덤 소환 간격 설정
 		SpawnBomb(); // Bomb 소환
 	}
 
-	// @Todo: 여기 타이머 스폰 좀 수정해야 함 (사실 전부 조절해야 함 .. 스티커 메모처럼 ..)
 	// Shield 소환 타이머 업데이트
 	spawnElapsedTimeShield += deltaTime;
 	if (spawnElapsedTimeShield >= spawnIntervalShield)
 	{
 		spawnElapsedTimeShield = 0.0f;
-		spawnIntervalShield = 10.0f; // 소환 간격 15초 고정
+		spawnIntervalShield = RandomPercent(5.0f, 10.0f); // 새로운 랜덤 소환 간격 설정
 		SpawnShield(); // Shield 소환
 	}
 
@@ -98,7 +94,7 @@ void GameLevel::Update(float deltaTime)
 	if (spawnElapsedTimeUpgrade >= spawnIntervalUpgrade)
 	{
 		spawnElapsedTimeUpgrade = 0.0f;
-		spawnIntervalUpgrade = 5.0f; // 소환 간격 5초 고정
+		spawnIntervalUpgrade = 20.0f; // 소환 간격 20초 고정
 		SpawnUpgrade(); // Upgrade 소환
 	}
 
@@ -162,7 +158,7 @@ void GameLevel::DrawBorder()
 
 void GameLevel::SpawnEnemyA()
 {
-	float enemySpeedA = RandomPercent(10.0f, 15.0f);
+	float enemySpeedA = RandomPercent(5.0f, 10.0f);
 	AddActor(new EnemyA("A", enemySpeedA));
 }
 
@@ -175,7 +171,7 @@ void GameLevel::SpawnEnemyB()
 
 void GameLevel::SpawnEnemyC()
 {
-	float enemySpeedC = RandomPercent(5.0f, 10.0f);
+	float enemySpeedC = RandomPercent(3.0f, 5.0f);
 	AddActor(new EnemyC("C", enemySpeedC));
 }
 
@@ -536,7 +532,7 @@ void GameLevel::ProcessCollisionPlayerAndBomb()
 			continue;
 		}
 
-		// 폭탄 검색
+		// 폭탄 아이템 검색
 		Bomb* bomb = actor->As<Bomb>();
 		if (bomb)
 		{
@@ -550,18 +546,18 @@ void GameLevel::ProcessCollisionPlayerAndBomb()
 		return;
 	}
 
-	// 폭탄과 플레이어의 충돌 확인
+	// 폭탄 아이템과 플레이어의 충돌 확인
 	for (Bomb* bomb : bombs)
 	{
 		if (player->Intersect(*bomb))
 		{
-			// 폭탄 삭제
+			// 폭탄 아이템 삭제
 			bomb->Destroy();
 
 			// 맵에 있는 모든 몬스터 및 탄약 삭제
 			for (Actor* actor : actors)
 			{
-				if (actor->As<EnemyA>() || actor->As<EnemyB>() || actor->As<EnemyBullet>() || actor->As<EnemyC>())
+				if (actor->As<EnemyB>() || actor->As<EnemyC>() || actor->As<EnemyBullet>())
 				{
 					actor->Destroy();
 				}
@@ -585,7 +581,7 @@ void GameLevel::ProcessCollisionPlayerAndShield()
 			continue;
 		}
 
-		// 쉴드 검색
+		// 쉴드 아이템 검색
 		if (!shield)
 		{
 			shield = actor->As<Shield>();
@@ -601,12 +597,12 @@ void GameLevel::ProcessCollisionPlayerAndShield()
 
 	if (player->Intersect(*shield))
 	{
-		// 쉴드 삭제
+		// 쉴드 아이템 삭제
 		shield->Destroy();
 
+		// 쉴드 생성
 		player->CreateShield();
 
-		// @Todo: 타이머 관련 함수 .. (음 ? 이게 머지 .. 암튼 그냥 스티커 메모대로 ㄱㄱ)
 	}
 }
 
@@ -644,6 +640,6 @@ void GameLevel::ProcessCollisionPlayerAndUpgrade()
 		// 업그레이드 아이템 삭제
 		upgrade->Destroy();
 
-		// @Todo: 업그레이드 아이템 먹으면 총알 발사 쿨타임 줄어들게 ..
+		// @Todo: 업그레이드 아이템 먹으면 총알 발사 쿨타임 줄어들게 .. (0회 먹으면 발사 못함, 1회 먹으면 쿨 2초, 2회 먹으면 쿨 1초, 3회 먹으면 쿨 0.1초
 	}
 }

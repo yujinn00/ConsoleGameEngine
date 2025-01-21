@@ -122,6 +122,6 @@ void EnemyB::Update(float deltaTime)
         }
 
         // ÃÑ¾Ë Ãß°¡
-        Engine::Get().AddActor(new EnemyBullet(position, bulletDirection, 20.0f));
+        Engine::Get().AddActor(new EnemyBullet(position, bulletDirection, 10.0f));
     }
 }

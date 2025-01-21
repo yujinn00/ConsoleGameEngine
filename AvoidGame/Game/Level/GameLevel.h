@@ -45,25 +45,28 @@ private:
 	// 점수
 	int score = 0;
 
+	// 게임 타이머
+	float ElapsedTime = 0.0f;
+
 	// EnemyA 스폰 타이머
 	float spawnElapsedTimeA = 0.0f;
-	float spawnIntervalA = 0.0f;
+	float spawnIntervalA = 1.0f;
 
 	// EnemyB 스폰 타이머
 	float spawnElapsedTimeB = 0.0f;
-	float spawnIntervalB = 0.0f;
+	float spawnIntervalB = 20.0f;
 
 	// EnemyC 스폰 타이머
 	float spawnElapsedTimeC = 0.0f;
-	float spawnIntervalC = 0.0f;
+	float spawnIntervalC = 40.0f;
 
 	// Bomb 스폰 타이머
 	float spawnElapsedTimeBomb = 0.0f;
-	float spawnIntervalBomb = 0.0f;
+	float spawnIntervalBomb = 40.0f;
 
 	// Shield 스폰 타이머
 	float spawnElapsedTimeShield = 0.0f;
-	float spawnIntervalShield = 0.0f;
+	float spawnIntervalShield = 20.0f;
 
 	// Upgrade 스폰 타이머
 	float spawnElapsedTimeUpgrade = 0.0f;
