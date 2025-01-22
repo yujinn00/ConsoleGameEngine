@@ -38,19 +38,12 @@ void ClearLevel::Draw()
     }
 
     // 게임 오버 그리기
-    // @Todo: 좌표 수정
-    //Engine::Get().Draw(Vector2(2, 2), " ####    #    #   #  #####     ###   #   #  #####  #### ", Color::Cyan);
-    //Engine::Get().Draw(Vector2(2, 3), "#       # #   ## ##  #        #   #  #   #  #      #   #", Color::Cyan);
-    //Engine::Get().Draw(Vector2(2, 4), "#  ##  #####  # # #  #####    #   #  #   #  #####  #### ", Color::Cyan);
-    //Engine::Get().Draw(Vector2(2, 5), "#   #  #   #  #   #  #        #   #   # #   #      #  # ", Color::Cyan);
-    //Engine::Get().Draw(Vector2(2, 6), " ####  #   #  #   #  #####     ###     #    #####  #   #", Color::Cyan);
-    Engine::Get().Draw(Vector2(13, 2), " ####  #      #####    #    #### ", Color::Cyan);
-    Engine::Get().Draw(Vector2(13, 3), "#      #      #       # #   #   #", Color::Cyan);
-    Engine::Get().Draw(Vector2(13, 4), "#      #      #####  #####  #### ", Color::Cyan);
-    Engine::Get().Draw(Vector2(13, 5), "#      #      #      #   #  #  # ", Color::Cyan);
-    Engine::Get().Draw(Vector2(13, 6), " ####  #####  #####  #   #  #   #", Color::Cyan);
+    Engine::Get().Draw(Vector2(13, 11), " ####  #      #####    #    #### ", Color::Cyan);
+    Engine::Get().Draw(Vector2(13, 12), "#      #      #       # #   #   #", Color::Cyan);
+    Engine::Get().Draw(Vector2(13, 13), "#      #      #####  #####  #### ", Color::Cyan);
+    Engine::Get().Draw(Vector2(13, 14), "#      #      #      #   #  #  # ", Color::Cyan);
+    Engine::Get().Draw(Vector2(13, 15), " ####  #####  #####  #   #  #   #", Color::Cyan);
 
     // 하단에 메시지 출력
-    // @Todo: 좌표 수정
-    Engine::Get().Draw(Vector2(screenSize.x / 2 - 15, screenSize.y - 3), "Press Enter to continue ...", Color::Green);
+    Engine::Get().Draw(Vector2(screenSize.x / 2 - 13, screenSize.y - 3), "Press Enter to continue ...", Color::Green);
 }

@@ -20,7 +20,7 @@ public:
 	// 쉴드 파괴 함수
 	void DestroyShield();
 
-	// 총알 발사 쿨타임 감소
+	// 총알 발사 쿨타임 감소 함수
 	void DecreseCooldown();
 
 public:

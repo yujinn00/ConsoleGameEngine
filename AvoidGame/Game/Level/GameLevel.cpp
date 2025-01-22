@@ -17,6 +17,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <sstream>
 #include <algorithm>
 
 GameLevel::GameLevel()
@@ -189,15 +190,15 @@ void GameLevel::Draw()
 	// 스테이지 정보 출력
 	if (ElapsedTime >= 0.0f && ElapsedTime < 3.0f)
 	{
-		Engine::Get().Draw(Vector2(Engine::Get().ScreenSize().x / 2 - 5, 3), "Stage 1", Color::White);
+		Engine::Get().Draw(Vector2(Engine::Get().ScreenSize().x / 2 - 4, 3), "Stage 01", Color::White);
 	}
 	else if (ElapsedTime >= 20.0f && ElapsedTime < 23.0f)
 	{
-		Engine::Get().Draw(Vector2(Engine::Get().ScreenSize().x / 2 - 5, 3), "Stage 2", Color::White);
+		Engine::Get().Draw(Vector2(Engine::Get().ScreenSize().x / 2 - 4, 3), "Stage 02", Color::White);
 	}
 	else if (ElapsedTime >= 40.0f && ElapsedTime < 43.0f)
 	{
-		Engine::Get().Draw(Vector2(Engine::Get().ScreenSize().x / 2 - 5, 3), "Stage 3", Color::White);
+		Engine::Get().Draw(Vector2(Engine::Get().ScreenSize().x / 2 - 4, 3), "Stage 03", Color::White);
 	}
 
 	// 액터 그리기
@@ -208,7 +209,7 @@ void GameLevel::Draw()
 
 	// 점수 출력하기
 	std::string scoreText = "Score: " + std::to_string(score);
-	Engine::Get().Draw(Vector2(Engine::Get().ScreenSize().x / 2 - 5, 0), scoreText.c_str(), Color::Green);
+	Engine::Get().Draw(Vector2(Engine::Get().ScreenSize().x / 2 - 4, 0), scoreText.c_str(), Color::Green);
 }
 
 void GameLevel::DrawBorder()

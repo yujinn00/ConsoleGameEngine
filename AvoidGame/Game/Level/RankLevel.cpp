@@ -42,14 +42,12 @@ void RankLevel::Draw()
     }
 
     // 타이틀 그리기
-    // @Todo: 좌표 수정
-    Engine::Get().Draw(Vector2(screenSize.x / 2 - 7, 2), "==== ScoreBoard ====", Color::Cyan);
+    Engine::Get().Draw(Vector2(screenSize.x / 2 - 10, 2), "==== ScoreBoard ====", Color::Cyan);
 
     LoadScore();
 
     // 하단에 메시지 출력
-    // @Todo: 좌표 수정
-    Engine::Get().Draw(Vector2(screenSize.x / 2 - 15, screenSize.y - 3), "Press Enter to continue ...", Color::Green);
+    Engine::Get().Draw(Vector2(screenSize.x / 2 - 13, screenSize.y - 3), "Press Enter to continue ...", Color::Green);
 }
 
 void RankLevel::LoadScore()
@@ -61,8 +59,7 @@ void RankLevel::LoadScore()
     std::ifstream fin("Rank.txt");
     if (!fin.is_open() || fin.peek() == std::ifstream::traits_type::eof())
     {
-        // @Todo: 좌표 수정
-        Engine::Get().Draw(Vector2(screenSize.x / 2 - 10, 5), "Data not found ...", Color::White);
+        Engine::Get().Draw(Vector2(screenSize.x / 2 - 9, 5), "Data not found ...", Color::White);
     }
     else
     {
@@ -84,22 +81,22 @@ void RankLevel::LoadScore()
             if (i == 0)
             {
                 std::string st = "1st - " + ranks[i];
-                Engine::Get().Draw(Vector2(screenSize.x / 2 - 10, yOffset), st.c_str(), Color::White);
+                Engine::Get().Draw(Vector2(screenSize.x / 2 - 5, yOffset), st.c_str(), Color::White);
             }
             else if (i == 1)
             {
                 std::string nd = "2nd - " + ranks[i];
-                Engine::Get().Draw(Vector2(screenSize.x / 2 - 10, yOffset), nd.c_str(), Color::White);
+                Engine::Get().Draw(Vector2(screenSize.x / 2 - 5, yOffset), nd.c_str(), Color::White);
             }
             else if (i == 2)
             {
                 std::string rd = "3rd - " + ranks[i];
-                Engine::Get().Draw(Vector2(screenSize.x / 2 - 10, yOffset), rd.c_str(), Color::White);
+                Engine::Get().Draw(Vector2(screenSize.x / 2 - 5, yOffset), rd.c_str(), Color::White);
             }
             else
             {
                 std::string th = std::to_string(i + 1) + "th - " + ranks[i];
-                Engine::Get().Draw(Vector2(screenSize.x / 2 - 10, yOffset), th.c_str(), Color::White);
+                Engine::Get().Draw(Vector2(screenSize.x / 2 - 5, yOffset), th.c_str(), Color::White);
             }
             yOffset += lineHeight;
         }
