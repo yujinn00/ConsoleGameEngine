@@ -43,6 +43,7 @@ void Game::ToggleLevel(const char* text)
 	{
 		mainLevel = gameLevel;
 	}
+	// @Todo: 나중에 Rank Rank 검색해서 다 수정해야 함 !!
 	else if (text == "Rank Rank")
 	{
 		mainLevel = rankLevel;

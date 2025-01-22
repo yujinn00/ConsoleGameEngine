@@ -60,7 +60,7 @@ void GameLevel::Update(float deltaTime)
 		scoreUpdateElapsedTime = 0.0f; // 타이머 초기화
 	}
 
-	// 페이즈 변경 후 신규 몬스터 생성
+	// 스테이지 변경 후 신규 몬스터 생성
 	if (ElapsedTime < 20.0f)
 	{
 		if (spawnElapsedTimeA >= spawnIntervalA)
@@ -89,7 +89,7 @@ void GameLevel::Update(float deltaTime)
 		}
 	}
 
-	// 페이즈 변경 후 기존 몬스터 삭제
+	// 스테이지 변경 후 기존 몬스터 삭제
 	if (ElapsedTime >= 20.0f && !isRemovedEnemyA)
 	{
 		// 맵에 있는 EnemyA 및 업그레이드 아이템 삭제
@@ -129,8 +129,6 @@ void GameLevel::Update(float deltaTime)
 			}
 		}
 
-		// @Todo: 보스가 있느냐 없느냐에 따라 아래 bool이랑 나중에 플레이어 destroy나 하거나 안해야 함 !!
-		// 근데 왜 플레이어 제거 안해도 메모리 릭이 안나지 ?
 		// EnemyC 전부 제거 완료
 		isRemovedEnemyC = true;
 
@@ -193,6 +191,20 @@ void GameLevel::Draw()
 {
 	// 테두리 그리기
 	DrawBorder();
+
+	// 스테이지 정보 출력
+	if (ElapsedTime >= 0.0f && ElapsedTime < 3.0f)
+	{
+		Engine::Get().Draw(Vector2(Engine::Get().ScreenSize().x / 2 - 5, 3), "Stage 1", Color::White);
+	}
+	else if (ElapsedTime >= 20.0f && ElapsedTime < 23.0f)
+	{
+		Engine::Get().Draw(Vector2(Engine::Get().ScreenSize().x / 2 - 5, 3), "Stage 2", Color::White);
+	}
+	else if (ElapsedTime >= 40.0f && ElapsedTime < 43.0f)
+	{
+		Engine::Get().Draw(Vector2(Engine::Get().ScreenSize().x / 2 - 5, 3), "Stage 3", Color::White);
+	}
 
 	// 액터 그리기
 	for (Actor* actor : actors)

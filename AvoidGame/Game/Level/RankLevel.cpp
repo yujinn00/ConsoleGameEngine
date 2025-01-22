@@ -78,7 +78,6 @@ void RankLevel::LoadScore()
         const int lineHeight = 2;
         int yOffset = 5;
 
-        // @Todo: 포매팅 해야 함
         // 상위 10등까지만 출력
         for (int i = 0; i < ranks.size() && i < 10; ++i)
         {

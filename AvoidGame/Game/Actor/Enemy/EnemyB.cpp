@@ -41,7 +41,7 @@ EnemyB::EnemyB(const char* image, SpawnPosition spawnPosition, float speed)
     }
 
     // 초기 위치 설정
-    SetPosition(Vector2(xPosition, yPosition));
+    SetPosition(Vector2(static_cast<int>(xPosition), static_cast<int>(yPosition)));
 }
 
 void EnemyB::Update(float deltaTime)
