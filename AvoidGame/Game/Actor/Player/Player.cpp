@@ -118,7 +118,7 @@ void Player::Shoot()
 	}
 
 	// ÃÑ¾Ë »ý¼º
-	Engine::Get().AddActor(new PlayerBullet(startPosition, moveDirection, 30.0f));
+	Engine::Get().AddActor(new PlayerBullet(startPosition, moveDirection));
 }
 
 void Player::CreateShield()
@@ -131,4 +131,9 @@ void Player::DestroyShield()
 {
     isShield = false;
     color = Color::Cyan;
+}
+
+void Player::DecreseCooldown()
+{
+    spawnIntervalBullet -= 0.5f;
 }

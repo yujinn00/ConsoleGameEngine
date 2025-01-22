@@ -17,8 +17,8 @@ public:
 private:
 	Level* lobbyLevel = nullptr;
 	Level* gameLevel = nullptr;
+	Level* rankLevel = nullptr;
 	Level* menuLevel = nullptr;
-	//Level* scoreLevel = nullptr;
 
 private:
 	static Game* instance;

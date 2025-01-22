@@ -8,6 +8,10 @@ LobbyLevel::LobbyLevel()
         []() {Game::Get().ToggleLevel("Start Game"); })
     );
     items.emplace_back(new LobbyItem(
+        "< Rank Rank >",
+        []() {Game::Get().ToggleLevel("Rank Rank"); })
+    );
+    items.emplace_back(new LobbyItem(
         "< Quit Game >",
         []() {Game::Get().QuitGame(); })
     );

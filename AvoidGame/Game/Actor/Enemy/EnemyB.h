@@ -13,14 +13,14 @@ public:
 
 private:
 	// x 좌표 및 y 좌표
-	float xPosition = 0.0f;
-	float yPosition = 0.0f;
+	float xPosition;
+	float yPosition;
 
 	// 이동 속도
-	float speed = 0.0f;
+	float speed;
 
 	// 이동 방향
-	MoveDirection moveDirection;
+	MoveDirection moveDirection = MoveDirection::None;
 
 	// 생성 위치
 	SpawnPosition spawnPosition;

@@ -7,16 +7,16 @@ class PlayerBullet : public DrawableActor
 	RTTI_DECLARATIONS(PlayerBullet, DrawableActor)
 
 public:
-	PlayerBullet(const Vector2& position, MoveDirection moveDirection, float speed);
+	PlayerBullet(const Vector2& position, MoveDirection moveDirection);
 
 	virtual void Update(float deltaTime) override;
 
 private:
 	// x ÁÂÇ¥
-	float xPosition = 0.0f;
+	float xPosition;
 
 	// y ÁÂÇ¥
-	float yPosition = 0.0f;
+	float yPosition;
 
 	// ÀÌµ¿ ¼Óµµ
 	float speed = 30.0f;

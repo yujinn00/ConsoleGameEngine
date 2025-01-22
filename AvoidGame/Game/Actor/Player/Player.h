@@ -20,6 +20,9 @@ public:
 	// 쉴드 파괴 함수
 	void DestroyShield();
 
+	// 총알 발사 쿨타임 감소
+	void DecreseCooldown();
+
 public:
 	// 현재 보호막 상태
 	bool isShield = false;

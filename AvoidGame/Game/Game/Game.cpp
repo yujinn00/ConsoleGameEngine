@@ -2,8 +2,8 @@
 
 #include "Level/LobbyLevel.h"
 #include "Level/GameLevel.h"
+#include "Level/RankLevel.h"
 #include "Level/MenuLevel.h"
-//#include "Level/ScoreLevel.h"
 
 Game* Game::instance = nullptr;
 
@@ -16,8 +16,8 @@ Game::Game()
 
 	lobbyLevel = new LobbyLevel();
 	gameLevel = new GameLevel();
+	rankLevel = new RankLevel();
 	menuLevel = new MenuLevel();
-	//scoreLevel = new ScoreLevel();
 	mainLevel = lobbyLevel;
 }
 
@@ -26,8 +26,8 @@ Game::~Game()
 	mainLevel = nullptr;
 	delete lobbyLevel;
 	delete gameLevel;
+	delete rankLevel;
 	delete menuLevel;
-	//delete scoreLevel;
 }
 
 Level* Game::LoadLobbyLevel()
@@ -43,6 +43,10 @@ void Game::ToggleLevel(const char* text)
 	{
 		mainLevel = gameLevel;
 	}
+	else if (text == "Rank Rank")
+	{
+		mainLevel = rankLevel;
+	}
 	else if (text == "Game Menu")
 	{
 		mainLevel = menuLevel;
@@ -51,8 +55,4 @@ void Game::ToggleLevel(const char* text)
 	{
 		mainLevel = lobbyLevel;
 	}
-	//else if (text == "ScoreBoard")
-	//{
-	//	mainLevel = scoreLevel;
-	//}
 }

@@ -10,6 +10,7 @@
 // 이동 방향 열거형
 enum class MoveDirection
 {
+	None = -1,
 	Up,
 	Down,
 	Left,
@@ -19,6 +20,7 @@ enum class MoveDirection
 // 생성 위치 열거형
 enum class SpawnPosition
 {
+	None = -1,
 	Top,
 	Bottom,
 	Left,

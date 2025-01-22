@@ -13,9 +13,9 @@ public:
 
 private:
 	// x 좌표 및 y 좌표
-	float xPosition = 0.0f;
-	float yPosition = 0.0f;
+	float xPosition;
+	float yPosition;
 
 	// 이동 속도
-	float speed = 0.0f;
+	float speed;
 };

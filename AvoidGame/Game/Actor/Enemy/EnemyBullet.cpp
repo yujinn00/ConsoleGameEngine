@@ -1,8 +1,8 @@
 #include "EnemyBullet.h"
 #include "Engine/Engine.h"
 
-EnemyBullet::EnemyBullet(const Vector2& position, MoveDirection moveDirection, float speed)
-	: DrawableActor("*"), moveDirection(moveDirection), speed(speed)
+EnemyBullet::EnemyBullet(const Vector2& position, MoveDirection moveDirection)
+	: DrawableActor("*"), moveDirection(moveDirection)
 {
 	// 색상 설정
 	color = Color::White;

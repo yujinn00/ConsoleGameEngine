@@ -1,11 +1,11 @@
 #include "PlayerBullet.h"
 #include "Engine/Engine.h"
 
-PlayerBullet::PlayerBullet(const Vector2& position, MoveDirection moveDirection, float speed)
-	: DrawableActor("+"), moveDirection(moveDirection), speed(speed)
+PlayerBullet::PlayerBullet(const Vector2& position, MoveDirection moveDirection)
+	: DrawableActor("+"), moveDirection(moveDirection)
 {
 	// 색상 설정
-	color = Color::White2;
+	color = Color::White;
 
 	// 좌표 설정
 	this->position = position;

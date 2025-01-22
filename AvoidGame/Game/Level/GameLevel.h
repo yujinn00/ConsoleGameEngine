@@ -13,13 +13,16 @@ public:
 	virtual void Update(float deltaTime) override;
 	virtual void Draw() override;
 
-	// 플레이어 반환 함수
-	Player* GetPlayer() const;
-
-private:
 	// 테두리 그리기 함수
 	void DrawBorder();
 
+	// 플레이어 반환 함수
+	Player* GetPlayer() const;
+
+	// 점수를 저장하는 함수
+	void SaveScore(int score);
+
+private:
 	// 액터 생성 함수
 	void SpawnEnemyA();
 	void SpawnEnemyB();
@@ -47,18 +50,22 @@ private:
 
 	// 게임 타이머
 	float ElapsedTime = 0.0f;
+	float scoreUpdateElapsedTime = 0.0f;
 
 	// EnemyA 스폰 타이머
 	float spawnElapsedTimeA = 0.0f;
 	float spawnIntervalA = 1.0f;
+	bool isRemovedEnemyA = false;
 
 	// EnemyB 스폰 타이머
 	float spawnElapsedTimeB = 0.0f;
 	float spawnIntervalB = 20.0f;
+	bool isRemovedEnemyB = false;
 
 	// EnemyC 스폰 타이머
 	float spawnElapsedTimeC = 0.0f;
 	float spawnIntervalC = 40.0f;
+	bool isRemovedEnemyC = false;
 
 	// Bomb 스폰 타이머
 	float spawnElapsedTimeBomb = 0.0f;

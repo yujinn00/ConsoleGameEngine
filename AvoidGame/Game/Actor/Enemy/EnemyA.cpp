@@ -4,7 +4,7 @@
 #include <cstdlib>
 
 EnemyA::EnemyA(const char* image, float speed)
-	: DrawableActor(image), speed(speed), moveDirection(MoveDirection::Up)
+	: DrawableActor(image), speed(speed)
 {
 	// 색상 설정
 	color = Color::Red;

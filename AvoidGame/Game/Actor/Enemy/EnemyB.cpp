@@ -5,7 +5,7 @@
 #include <cstdlib>
 
 EnemyB::EnemyB(const char* image, SpawnPosition spawnPosition, float speed)
-    : DrawableActor(image), spawnPosition(spawnPosition), speed(speed), moveDirection(MoveDirection::Up)
+    : DrawableActor(image), spawnPosition(spawnPosition), speed(speed)
 {
     // 색상 설정
     color = Color::Yellow;
@@ -122,6 +122,6 @@ void EnemyB::Update(float deltaTime)
         }
 
         // 총알 추가
-        Engine::Get().AddActor(new EnemyBullet(position, bulletDirection, 10.0f));
+        Engine::Get().AddActor(new EnemyBullet(position, bulletDirection));
     }
 }
