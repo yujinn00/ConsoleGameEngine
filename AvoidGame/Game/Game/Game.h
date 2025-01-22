@@ -19,6 +19,8 @@ private:
 	Level* gameLevel = nullptr;
 	Level* rankLevel = nullptr;
 	Level* menuLevel = nullptr;
+	Level* overLevel = nullptr;
+	Level* clearLevel = nullptr;
 
 private:
 	static Game* instance;

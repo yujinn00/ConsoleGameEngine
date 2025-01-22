@@ -132,14 +132,8 @@ void GameLevel::Update(float deltaTime)
 		// EnemyC 전부 제거 완료
 		isRemovedEnemyC = true;
 
-		// 약 2초간 정지
-		Sleep(2000);
-
-		// 현재 점수를 파일에 저장
-		SaveScore(score);
-
-		// 게임 종료
-		Engine::Get().QuitGame();
+		// 게임 클리어
+		GameClear();
 	}
 
 	// 아이템 생성
@@ -372,14 +366,8 @@ void GameLevel::ProcessCollisionPlayerAndEnemyA()
 			// 플레이어 제거
 			player->Destroy();
 
-			// 약 2초간 정지
-			Sleep(2000);
-
-			// 현재 점수를 파일에 저장
-			SaveScore(score);
-
-			// 게임 종료
-			Engine::Get().QuitGame();
+			// 게임 오버
+			GameOver();
 		}
 	}
 }
@@ -434,14 +422,8 @@ void GameLevel::ProcessCollisionPlayerAndEnemyB()
 			// 플레이어 제거
 			player->Destroy();
 
-			// 약 2초간 정지
-			Sleep(2000);
-
-			// 현재 점수를 파일에 저장
-			SaveScore(score);
-
-			// 게임 종료
-			Engine::Get().QuitGame();
+			// 게임 오버
+			GameOver();
 		}
 	}
 }
@@ -496,14 +478,8 @@ void GameLevel::ProcessCollisionPlayerAndEnemyC()
 			// 플레이어 제거
 			player->Destroy();
 
-			// 약 2초간 정지
-			Sleep(2000);
-
-			// 현재 점수를 파일에 저장
-			SaveScore(score);
-
-			// 게임 종료
-			Engine::Get().QuitGame();
+			// 게임 오버
+			GameOver();
 		}
 	}
 }
@@ -558,14 +534,8 @@ void GameLevel::ProcessCollisionPlayerAndBullet()
 			// 플레이어 제거
 			player->Destroy();
 
-			// 약 2초간 정지
-			Sleep(2000);
-
-			// 현재 점수를 파일에 저장
-			SaveScore(score);
-
-			// 게임 종료
-			Engine::Get().QuitGame();
+			// 게임 오버
+			GameOver();
 		}
 	}
 }
@@ -799,4 +769,28 @@ void GameLevel::ProcessCollisionPlayerAndUpgrade()
 		// 총알 발사 간격 감소
 		player->DecreseCooldown();
 	}
+}
+
+void GameLevel::GameOver()
+{
+	// 약 1초간 정지
+	Sleep(1000);
+
+	// 현재 점수를 파일에 저장
+	SaveScore(score);
+
+	// 게임 오버 레벨 전환
+	Game::Get().ToggleLevel("Game Over");
+}
+
+void GameLevel::GameClear()
+{
+	// 약 1초간 정지
+	Sleep(1000);
+
+	// 현재 점수를 파일에 저장
+	SaveScore(score);
+
+	// 게임 클리어 레벨 전환
+	Game::Get().ToggleLevel("Game Clear");
 }

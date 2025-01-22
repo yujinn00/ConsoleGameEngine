@@ -43,7 +43,7 @@ void RankLevel::Draw()
 
     // 타이틀 그리기
     // @Todo: 좌표 수정
-    Engine::Get().Draw(Vector2(screenSize.x / 2 - 7, 2), "=== LeaderBoard ===", Color::Cyan);
+    Engine::Get().Draw(Vector2(screenSize.x / 2 - 7, 2), "==== ScoreBoard ====", Color::Cyan);
 
     LoadScore();
 

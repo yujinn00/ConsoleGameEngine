@@ -4,6 +4,8 @@
 #include "Level/GameLevel.h"
 #include "Level/RankLevel.h"
 #include "Level/MenuLevel.h"
+#include "Level/OverLevel.h"
+#include "Level/ClearLevel.h"
 
 Game* Game::instance = nullptr;
 
@@ -18,6 +20,8 @@ Game::Game()
 	gameLevel = new GameLevel();
 	rankLevel = new RankLevel();
 	menuLevel = new MenuLevel();
+	overLevel = new OverLevel();
+	clearLevel = new ClearLevel();
 	mainLevel = lobbyLevel;
 }
 
@@ -28,6 +32,8 @@ Game::~Game()
 	delete gameLevel;
 	delete rankLevel;
 	delete menuLevel;
+	delete overLevel;
+	delete clearLevel;
 }
 
 Level* Game::LoadLobbyLevel()
@@ -39,12 +45,21 @@ void Game::ToggleLevel(const char* text)
 {
 	system("cls");
 
-	if (text == "Start Game" || text == "Resume Game")
+	if (text == "Start Game")
+	{
+		if (gameLevel)
+		{
+			delete gameLevel;
+			gameLevel = nullptr;
+		}
+		gameLevel = new GameLevel();
+		mainLevel = gameLevel;
+	}
+	else if (text == "Resume Game")
 	{
 		mainLevel = gameLevel;
 	}
-	// @Todo: 나중에 Rank Rank 검색해서 다 수정해야 함 !!
-	else if (text == "Rank Rank")
+	else if (text == "ScoreBoard")
 	{
 		mainLevel = rankLevel;
 	}
@@ -55,5 +70,13 @@ void Game::ToggleLevel(const char* text)
 	else if (text == "Return to Lobby")
 	{
 		mainLevel = lobbyLevel;
+	}
+	else if (text == "Game Over")
+	{
+		mainLevel = overLevel;
+	}
+	else if (text == "Game Clear")
+	{
+		mainLevel = clearLevel;
 	}
 }

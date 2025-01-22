@@ -41,6 +41,12 @@ private:
 	void ProcessCollisionPlayerAndShield();
 	void ProcessCollisionPlayerAndUpgrade();
 
+	// 게임 오버
+	void GameOver();
+
+	// 게임 클리어
+	void GameClear();
+
 private:
 	// 플레이어 객체
 	Player* player;
