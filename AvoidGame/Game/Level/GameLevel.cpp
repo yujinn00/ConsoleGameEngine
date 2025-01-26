@@ -21,7 +21,7 @@
 #include <algorithm>
 
 GameLevel::GameLevel()
-	: player(new Player("P"))
+	: player(new Player("p"))
 {
 	AddActor(player);
 }
@@ -41,6 +41,20 @@ void GameLevel::Update(float deltaTime)
 	spawnElapsedTimeB += deltaTime;
 	spawnElapsedTimeC += deltaTime;
 	scoreUpdateElapsedTime += deltaTime;
+
+	// 남은 시간 계산
+	if (ElapsedTime < 20.0f)
+	{
+		remainingTime = static_cast<int>(21 - ElapsedTime); // 스테이지 1의 남은 시간
+	}
+	else if (ElapsedTime >= 20.0f && ElapsedTime < 40.0f)
+	{
+		remainingTime = static_cast<int>(41 - ElapsedTime); // 스테이지 2의 남은 시간
+	}
+	else if (ElapsedTime >= 40.0f && ElapsedTime < 60.0f)
+	{
+		remainingTime = static_cast<int>(61 - ElapsedTime); // 스테이지 3의 남은 시간
+	}
 
 	// 1초마다 점수 업데이트
 	if (scoreUpdateElapsedTime >= 1.0f)
@@ -207,9 +221,19 @@ void GameLevel::Draw()
 		actor->Draw();
 	}
 
+	// 남은 시간 출력
+	char buffer1[50];
+	snprintf(buffer1, sizeof(buffer1), "Time: %d", remainingTime);
+	Engine::Get().Draw(Vector2(1, 0), buffer1, Color::Green);
+
 	// 점수 출력하기
 	std::string scoreText = "Score: " + std::to_string(score);
 	Engine::Get().Draw(Vector2(Engine::Get().ScreenSize().x / 2 - 4, 0), scoreText.c_str(), Color::Green);
+
+	// 탄약 발사 쿨타임 출력하기
+	char buffer2[50];
+	snprintf(buffer2, sizeof(buffer2), "Cooldown: %.1f", player->GetCooldown());
+	Engine::Get().Draw(Vector2(Engine::Get().ScreenSize().x - 14, 0), buffer2, Color::Green);
 }
 
 void GameLevel::DrawBorder()

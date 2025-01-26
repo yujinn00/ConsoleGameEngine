@@ -54,6 +54,9 @@ private:
 	// 점수
 	int score = 0;
 
+	// 남은 시간
+	int remainingTime = 0;
+
 	// 게임 타이머
 	float ElapsedTime = 0.0f;
 	float scoreUpdateElapsedTime = 0.0f;

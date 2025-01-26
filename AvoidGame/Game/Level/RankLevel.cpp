@@ -81,17 +81,17 @@ void RankLevel::LoadScore()
             if (i == 0)
             {
                 std::string st = "1st - " + ranks[i];
-                Engine::Get().Draw(Vector2(screenSize.x / 2 - 5, yOffset), st.c_str(), Color::White);
+                Engine::Get().Draw(Vector2(screenSize.x / 2 - 5, yOffset), st.c_str(), Color::Yellow2);
             }
             else if (i == 1)
             {
                 std::string nd = "2nd - " + ranks[i];
-                Engine::Get().Draw(Vector2(screenSize.x / 2 - 5, yOffset), nd.c_str(), Color::White);
+                Engine::Get().Draw(Vector2(screenSize.x / 2 - 5, yOffset), nd.c_str(), Color::Yellow2);
             }
             else if (i == 2)
             {
                 std::string rd = "3rd - " + ranks[i];
-                Engine::Get().Draw(Vector2(screenSize.x / 2 - 5, yOffset), rd.c_str(), Color::White);
+                Engine::Get().Draw(Vector2(screenSize.x / 2 - 5, yOffset), rd.c_str(), Color::Yellow2);
             }
             else
             {

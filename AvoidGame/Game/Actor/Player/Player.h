@@ -7,7 +7,7 @@ class Player : public DrawableActor
 	RTTI_DECLARATIONS(Player, DrawableActor)
 
 public:
-	Player(const char* image = "P");
+	Player(const char* image = "p");
 
 	virtual void Update(float deltaTime);
 
@@ -20,8 +20,11 @@ public:
 	// 쉴드 파괴 함수
 	void DestroyShield();
 
-	// 총알 발사 쿨타임 감소 함수
+	// 탄알 발사 쿨타임 감소 함수
 	void DecreseCooldown();
+
+	// 탄알 발사 쿨타임 반환 함수
+	float GetCooldown() const;
 
 public:
 	// 현재 보호막 상태

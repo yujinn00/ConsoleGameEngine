@@ -3,6 +3,8 @@
 #include "Engine/Engine.h"
 #include "Math/Vector2.h"
 
+#include <cstring>
+
 Player::Player(const char* image)
 	: Super(image)
 {
@@ -124,16 +126,25 @@ void Player::Shoot()
 void Player::CreateShield()
 {
     isShield = true;
+    size_t length = strlen(image) + 1;
+    strcpy_s(image, length, "P");
     color = Color::Blue;
 }
 
 void Player::DestroyShield()
 {
     isShield = false;
+    size_t length = strlen(image) + 1;
+    strcpy_s(image, length, "p");
     color = Color::Cyan;
 }
 
 void Player::DecreseCooldown()
 {
     spawnIntervalBullet -= 0.5f;
+}
+
+float Player::GetCooldown() const
+{
+    return spawnIntervalBullet - spawnElapsedTimeBullet;
 }
