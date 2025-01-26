@@ -17,6 +17,7 @@ public:
 private:
 	Level* lobbyLevel = nullptr;
 	Level* gameLevel = nullptr;
+	Level* guideLevel = nullptr;
 	Level* rankLevel = nullptr;
 	Level* menuLevel = nullptr;
 	Level* overLevel = nullptr;

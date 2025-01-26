@@ -19,7 +19,7 @@ private:
 	float yPosition;
 
 	// 이동 속도
-	float speed = 30.0f;
+	float speed = 50.0f;
 
 	// 이동 방향
 	MoveDirection moveDirection;

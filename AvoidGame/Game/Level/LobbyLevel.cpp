@@ -8,6 +8,10 @@ LobbyLevel::LobbyLevel()
         []() {Game::Get().ToggleLevel("Start Game"); })
     );
     items.emplace_back(new LobbyItem(
+        "< Guide Line >",
+        []() {Game::Get().ToggleLevel("Guide Line"); })
+    );
+    items.emplace_back(new LobbyItem(
         "< ScoreBoard >",
         []() {Game::Get().ToggleLevel("ScoreBoard"); })
     );

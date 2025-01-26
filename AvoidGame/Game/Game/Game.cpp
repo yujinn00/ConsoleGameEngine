@@ -2,6 +2,7 @@
 
 #include "Level/LobbyLevel.h"
 #include "Level/GameLevel.h"
+#include "Level/GuideLevel.h"
 #include "Level/RankLevel.h"
 #include "Level/MenuLevel.h"
 #include "Level/OverLevel.h"
@@ -18,6 +19,7 @@ Game::Game()
 
 	lobbyLevel = new LobbyLevel();
 	gameLevel = new GameLevel();
+	guideLevel = new GuideLevel();
 	rankLevel = new RankLevel();
 	menuLevel = new MenuLevel();
 	overLevel = new OverLevel();
@@ -30,6 +32,7 @@ Game::~Game()
 	mainLevel = nullptr;
 	delete lobbyLevel;
 	delete gameLevel;
+	delete guideLevel;
 	delete rankLevel;
 	delete menuLevel;
 	delete overLevel;
@@ -58,6 +61,10 @@ void Game::ToggleLevel(const char* text)
 	else if (text == "Resume Game")
 	{
 		mainLevel = gameLevel;
+	}
+	else if (text == "Guide Line")
+	{
+		mainLevel = guideLevel;
 	}
 	else if (text == "ScoreBoard")
 	{

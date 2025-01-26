@@ -74,7 +74,7 @@ void Player::Update(float deltaTime)
     }
 
     // 총알 발사
-    if (Engine::Get().GetKeyDown(VK_SPACE) && isSpawnBullet)
+    if (isSpawnBullet)
     {
         Shoot();
         isSpawnBullet = false; // 총알 발사 후 다시 쿨타임으로 진입
