@@ -48,6 +48,8 @@ void Game::ToggleLevel(const char* text)
 {
 	system("cls");
 
+	SetPreviousLevel(mainLevel);
+
 	if (text == "Start Game")
 	{
 		if (gameLevel)
@@ -86,4 +88,14 @@ void Game::ToggleLevel(const char* text)
 	{
 		mainLevel = clearLevel;
 	}
+}
+
+Level* Game::GetPreviousLevel() const
+{
+	return previousLevel;
+}
+
+void Game::SetPreviousLevel(Level* level)
+{
+	this->previousLevel = level;
 }

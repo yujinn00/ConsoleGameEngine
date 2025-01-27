@@ -1,5 +1,8 @@
 #include "MenuLevel.h"
 #include "Game/Game.h"
+#include "GameLevel.h"
+
+#include <string>
 
 MenuLevel::MenuLevel()
 {
@@ -67,6 +70,26 @@ void MenuLevel::Draw()
     {
         Engine::Get().Draw(Vector2(0, y), "|", Color::White);
         Engine::Get().Draw(Vector2(screenSize.x - 1, y), "|", Color::White);
+    }
+
+    // 이전 레벨 데이터를 참조
+    GameLevel* gameLevel = Game::Get().GetPreviousLevel()->As<GameLevel>();
+
+    if (gameLevel)
+    {
+        // 남은 시간 출력
+        char buffer1[50];
+        snprintf(buffer1, sizeof(buffer1), "Time: %d", gameLevel->GetRemainingTime());
+        Engine::Get().Draw(Vector2(1, 0), buffer1, Color::Green);
+
+        // 점수 출력
+        std::string scoreText = "Score: " + std::to_string(gameLevel->GetScore());
+        Engine::Get().Draw(Vector2(screenSize.x / 2 - 4, 0), scoreText.c_str(), Color::Green);
+
+        // 탄약 발사 쿨타임 출력
+        char buffer2[50];
+        snprintf(buffer2, sizeof(buffer2), "Cooldown: %.1f", gameLevel->GetCooldown());
+        Engine::Get().Draw(Vector2(screenSize.x - 14, 0), buffer2, Color::Green);
     }
 
     // 타이틀 그리기

@@ -22,6 +22,15 @@ public:
 	// 점수를 저장하는 함수
 	void SaveScore(int score);
 
+	// 남은 시간을 반환하는 함수
+	int GetRemainingTime() const;
+
+	// 점수를 반환하는 함수
+	int GetScore() const;
+
+	// 탄약 발사 쿨타임을 반환하는 함수
+	float GetCooldown() const;
+
 private:
 	// 액터 생성 함수
 	void SpawnEnemyA();

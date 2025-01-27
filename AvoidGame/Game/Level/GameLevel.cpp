@@ -307,6 +307,21 @@ void GameLevel::SaveScore(int score)
 	}
 }
 
+int GameLevel::GetRemainingTime() const
+{
+	return remainingTime;
+}
+
+int GameLevel::GetScore() const
+{
+	return score;
+}
+
+float GameLevel::GetCooldown() const
+{
+	return player->GetCooldown();
+}
+
 void GameLevel::SpawnEnemyA()
 {
 	float enemySpeedA = RandomPercent(5.0f, 10.0f);

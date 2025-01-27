@@ -14,6 +14,9 @@ public:
 
 	static Game& Get() { return *instance; }
 
+	Level* GetPreviousLevel() const;
+	void SetPreviousLevel(Level* level);
+
 private:
 	Level* lobbyLevel = nullptr;
 	Level* gameLevel = nullptr;
@@ -22,6 +25,8 @@ private:
 	Level* menuLevel = nullptr;
 	Level* overLevel = nullptr;
 	Level* clearLevel = nullptr;
+
+	Level* previousLevel = nullptr;
 
 private:
 	static Game* instance;
