@@ -831,9 +831,6 @@ void GameLevel::GameClear()
 	// 현재 점수를 Game에 저장
 	Game::Get().SetScore(score);
 
-	// 약 1초간 정지
-	Sleep(1000);
-
 	// 현재 점수를 파일에 저장
 	SaveScore(score);
 
