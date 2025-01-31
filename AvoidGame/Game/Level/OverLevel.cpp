@@ -1,6 +1,8 @@
 #include "OverLevel.h"
 #include "Game/Game.h"
 
+#include <string>
+
 OverLevel::OverLevel()
 {
 }
@@ -43,6 +45,11 @@ void OverLevel::Draw()
     Engine::Get().Draw(Vector2(2, 13), "#  ##  #####  # # #  #####    #   #  #   #  #####  #### ", Color::Cyan);
     Engine::Get().Draw(Vector2(2, 14), "#   #  #   #  #   #  #        #   #   # #   #      #  # ", Color::Cyan);
     Engine::Get().Draw(Vector2(2, 15), " ####  #   #  #   #  #####     ###     #    #####  #   #", Color::Cyan);
+
+    // 점수 출력
+    int score = Game::Get().GetScore();
+    std::string scoreText = "Your Score: " + std::to_string(score);
+    Engine::Get().Draw(Vector2(screenSize.x / 2 - scoreText.length() / 2, screenSize.y / 2 - 6), scoreText.c_str(), Color::White);
 
     // 하단에 메시지 출력
     Engine::Get().Draw(Vector2(screenSize.x / 2 - 13, screenSize.y - 3), "Press Enter to continue ...", Color::Green);

@@ -11,12 +11,13 @@ Player::Player(const char* image)
     // 색상 설정
     color = Color::Cyan;
 
-	// 화면 크기를 가져와 중앙 위치 계산
-	Vector2 screenSize = Engine::Get().ScreenSize();
-	Vector2 centerPosition(screenSize.x / 2, screenSize.y / 2);
+    // 화면 크기를 가져와 중앙 위치 계산
+    Vector2 screenSize = Engine::Get().ScreenSize();
+    preciseX = static_cast<float>(screenSize.x / 2);
+    preciseY = static_cast<float>(screenSize.y / 2);
 
-	// 플레이어 위치를 화면 중앙으로 설정
-	SetPosition(centerPosition);
+    // 플레이어 위치 설정
+    SetPosition(Vector2(static_cast<int>(preciseX), static_cast<int>(preciseY)));
 }
 
 void Player::Update(float deltaTime)
@@ -26,10 +27,6 @@ void Player::Update(float deltaTime)
 
     // 스크린 사이즈 가져오기
     Vector2 screenSize = Engine::Get().ScreenSize();
-
-    // 현재 위치를 float로 변환
-    static float preciseX = static_cast<float>(position.x);
-    static float preciseY = static_cast<float>(position.y);
 
     // 상단 키 입력 처리
     if (Engine::Get().GetKey(VK_UP))
@@ -75,20 +72,20 @@ void Player::Update(float deltaTime)
         }
     }
 
-    // 총알 발사
-    if (isSpawnBullet)
-    {
-        Shoot();
-        isSpawnBullet = false; // 총알 발사 후 다시 쿨타임으로 진입
-    }
+	// 총알 발사
+	if (isSpawnBullet)
+	{
+		Shoot();
+		isSpawnBullet = false; // 총알 발사 후 다시 쿨타임으로 진입
+	}
 
-    // 총알 발사 타이머 업데이트
-    spawnElapsedTimeBullet += deltaTime;
-    if (spawnElapsedTimeBullet >= spawnIntervalBullet)
-    {
-        isSpawnBullet = true; // 쿨타임이 지나면 다시 발사 가능
-        spawnElapsedTimeBullet = 0.0f;
-    }
+	// 총알 발사 타이머 업데이트
+	spawnElapsedTimeBullet += deltaTime;
+	if (spawnElapsedTimeBullet >= spawnIntervalBullet)
+	{
+		isSpawnBullet = true; // 쿨타임이 지나면 다시 발사 가능
+		spawnElapsedTimeBullet = 0.0f;
+	}
 
     // float에서 int로 변환하여 최종 위치 적용
     position.x = static_cast<int>(preciseX);

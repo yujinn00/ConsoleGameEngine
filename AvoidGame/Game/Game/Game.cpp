@@ -99,3 +99,13 @@ void Game::SetPreviousLevel(Level* level)
 {
 	this->previousLevel = level;
 }
+
+void Game::SetScore(int score)
+{
+	this->score = score;
+}
+
+int Game::GetScore() const
+{
+	return score;
+}

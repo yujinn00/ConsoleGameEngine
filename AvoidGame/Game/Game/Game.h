@@ -17,6 +17,9 @@ public:
 	Level* GetPreviousLevel() const;
 	void SetPreviousLevel(Level* level);
 
+	void SetScore(int score);
+	int GetScore() const;
+
 private:
 	Level* lobbyLevel = nullptr;
 	Level* gameLevel = nullptr;
@@ -30,4 +33,6 @@ private:
 
 private:
 	static Game* instance;
+
+	int score = 0;
 };

@@ -17,7 +17,7 @@ GameLevel::GameLevel()
 	// 맵 파일 불러와 레벨 로드
 	// 파일 읽기
 	FILE* file = nullptr;
-	fopen_s(&file, "../Assets/Maps/Stage1.txt", "rb");
+	fopen_s(&file, "../Assets/Maps/Stage3.txt", "rb");
 
 	// 파일 처리
 	if (file == nullptr)

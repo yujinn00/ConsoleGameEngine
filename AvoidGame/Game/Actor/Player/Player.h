@@ -31,10 +31,14 @@ public:
 	bool isShield = false;
 
 private:
-	// x축 이동 속도 (초당 픽셀)
+	// 플레이어 위치
+	float preciseX = 0.0f;
+	float preciseY = 0.0f;
+
+	// X축 이동 속도 (초당 픽셀)
 	float moveSpeedX = 20.0f;
 
-	// y축 이동 속도 (초당 픽셀)
+	// Y축 이동 속도 (초당 픽셀)
 	float moveSpeedY = 15.0f;
 
 	// 탄알 스폰 타이머
